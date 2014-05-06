@@ -1,24 +1,33 @@
 
-ArcadeStorm.Preloader = function (game) {
+TimesOfLores.Preloader = function (game) {
 
-	this.background = null;
 	this.preloadBar = null;
 
 	this.ready = false;
 
 };
 
-ArcadeStorm.Preloader.prototype = {
+TimesOfLores.Preloader.prototype = {
 
 	preload: function () {
 
-		this.preloadBar = this.add.sprite(0, 100, 'preloaderBar');
+		this.preloadBar = this.add.sprite(0, 14, 'preloaderBar');
 
 		this.load.setPreloadSprite(this.preloadBar);
 
-		this.load.image('title', 'images/title.jpg');
-		this.load.image('photonstorm', 'images/photonstorm.png');
-		this.load.bitmapFont('rollingThunder', 'images/fonts/rolling-thunder.png', 'images/fonts/rolling-thunder.xml');
+		this.load.image('wall0', 'images/wall0.png');
+		this.load.image('wall1', 'images/wall1.png');
+		this.load.image('wall2', 'images/wall2.png');
+		this.load.image('wall3', 'images/wall3.png');
+		this.load.image('wall4', 'images/wall4.png');
+		this.load.image('wall5', 'images/wall5.png');
+		this.load.image('wall6', 'images/wall6.png');
+		this.load.image('wall7', 'images/wall7.png');
+		this.load.image('wall8', 'images/wall8.png');
+
+		this.load.spritesheet('key', 'images/key.png', 32, 32);
+		this.load.spritesheet('potion', 'images/potion.png', 32, 32);
+		this.load.spritesheet('frog', 'images/frog.png', 32, 32);
 
 	},
 
