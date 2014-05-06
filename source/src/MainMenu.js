@@ -28,6 +28,20 @@ TimesOfLores.MainMenu = function (game) {
 	this.frog3;
 	this.frog6;
 
+	//	UI
+	this.healthBG;
+	this.health;
+	this.nsew;
+
+	this.levelFont;
+	this.level;
+
+	this.keysFont;
+	this.keys;
+
+	this.goldFont;
+	this.gold;
+
 	this.cursors;
 
 };
@@ -65,6 +79,26 @@ TimesOfLores.MainMenu.prototype = {
     	this.wall7 = this.add.image(0, 0, 'wall7');
     	this.wall8 = this.add.image(0, 0, 'wall8');
 
+    	//	UI
+    	this.healthBG = this.add.image(1, 1, 'healthBG');
+    	this.health = this.add.image(1, 1, 'health');
+    	this.health.width = 5;
+    	this.nsew = this.add.image(14, 0, 'nsew', 0);
+
+	    this.levelFont = this.add.retroFont('digits', 4, 6, 'L0123456789');
+	    this.levelFont.text = 'L3';
+	    this.level = this.add.image(24, 0, this.levelFont);
+
+	    this.panel = this.add.image(0, 25, 'panel');
+
+	    this.keysFont = this.add.retroFont('digits', 4, 6, 'L0123456789');
+	    this.keysFont.text = '2';
+	    this.keys = this.add.image(20, 26, this.keysFont);
+
+	    this.goldFont = this.add.retroFont('digits', 4, 6, 'L0123456789');
+	    this.goldFont.text = '32';
+	    this.gold = this.add.image(5, 26, this.goldFont);
+
     	this.map = this.add.tilemap('map');
 
 	    this.map.setCollisionByIndex(2);
@@ -77,6 +111,8 @@ TimesOfLores.MainMenu.prototype = {
 
     	this.cursors.up.onDown.add(this.moveForward, this);
     	this.cursors.down.onDown.add(this.moveBackward, this);
+    	this.cursors.left.onDown.add(this.turnLeft, this);
+    	this.cursors.right.onDown.add(this.turnRight, this);
 
 	},
 
@@ -90,6 +126,20 @@ TimesOfLores.MainMenu.prototype = {
 	moveBackward: function () {
 
 		this.walker.moveBackward();
+		this.buildView();
+
+	},
+
+	turnLeft: function () {
+
+		this.walker.turnLeft();
+		this.buildView();
+
+	},
+
+	turnRight: function () {
+
+		this.walker.turnRight();
 		this.buildView();
 
 	},
@@ -116,6 +166,8 @@ TimesOfLores.MainMenu.prototype = {
 
 		this.frog3.visible = false;
 		this.frog6.visible = false;
+
+		this.nsew.frame = this.walker.facing;
 
 		var tiles = this.walker.getTiles(3, 3);
 

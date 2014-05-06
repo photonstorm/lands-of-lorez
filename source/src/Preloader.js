@@ -37,6 +37,20 @@ TimesOfLores.Preloader.prototype = {
 		this.load.image('frog3', 'images/frog3.png');
 		this.load.image('frog6', 'images/frog6.png');
 
+		this.load.spritesheet('nsew', 'images/nsew.png', 5, 6);
+		
+		this.load.image('digits', 'images/digits.png');
+
+		this.load.image('healthBG', 'images/health-bg.png');
+		this.load.image('health', 'images/health-fill.png');
+
+		this.load.image('enemyBG', 'images/enemy-bg.png');
+		this.load.image('enemy', 'images/enemy-fill.png');
+		this.load.image('gauge', 'images/enemy-gauge.png');
+		this.load.image('attack', 'images/attack-bar.png');
+
+		this.load.image('panel', 'images/panel.png');
+
 	    this.load.tilemap('map', 'maps.json', null, Phaser.Tilemap.TILED_JSON);
 
 	},
