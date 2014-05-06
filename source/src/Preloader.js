@@ -25,9 +25,19 @@ TimesOfLores.Preloader.prototype = {
 		this.load.image('wall7', 'images/wall7.png');
 		this.load.image('wall8', 'images/wall8.png');
 
-		this.load.spritesheet('key', 'images/key.png', 32, 32);
-		this.load.spritesheet('potion', 'images/potion.png', 32, 32);
-		this.load.spritesheet('frog', 'images/frog.png', 32, 32);
+		this.load.image('lock3', 'images/wall3-lock.png');
+		this.load.image('lock6', 'images/wall6-lock.png');
+
+		this.load.image('key3', 'images/key3.png');
+		this.load.image('key6', 'images/key6.png');
+
+		this.load.image('potion3', 'images/potion3.png');
+		this.load.image('potion6', 'images/potion6.png');
+
+		this.load.image('frog3', 'images/frog3.png');
+		this.load.image('frog6', 'images/frog6.png');
+
+	    this.load.tilemap('map', 'maps.json', null, Phaser.Tilemap.TILED_JSON);
 
 	},
 

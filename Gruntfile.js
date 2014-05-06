@@ -10,6 +10,9 @@ module.exports = function (grunt) {
         compile_dir: 'dist',
 
         timeoflores: [
+
+            '../phaser/plugins/TilemapWalker.js',
+
             'source/src/Boot.js',
             'source/src/Preloader.js',
             'source/src/MainMenu.js'

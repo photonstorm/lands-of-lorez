@@ -22,6 +22,7 @@
             $path = '../../phaser';
             require('../../phaser/build/config.php');
     ?>
+    <script src="../../phaser/plugins/TilemapWalker.js"></script>
     <script src="src/Boot.js"></script>
     <script src="src/Preloader.js"></script>
     <script src="src/MainMenu.js"></script>
@@ -36,11 +37,16 @@
     <?php
         }
     ?>
+        <style>
+            #game {
+                display: none;
+            }
+        </style>
 </head>
 <body>
 
+    <div id="actual-canvas"><canvas id="pixel" width="256" height="256" /></div>
     <div id="game"></div>
-    <div id="orientation"></div>
 
 </body>
 </html>

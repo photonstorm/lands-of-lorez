@@ -4,7 +4,13 @@ TimesOfLores = {
     score: 0,
 
     /* If the music in your game needs to play through-out a few State swaps, then you could reference it here */
-    music: null
+    music: null,
+
+    width: 256,
+    height: 256,
+
+    pixelCanvas: null,
+    pixelContext: null
 
 };
 
@@ -20,6 +26,11 @@ TimesOfLores.Boot.prototype = {
     },
 
     create: function () {
+
+        TimesOfLores.pixelCanvas = document.getElementById('pixel');
+        TimesOfLores.pixelContext = TimesOfLores.pixelCanvas.getContext('2d');
+
+        Phaser.Canvas.setSmoothingEnabled(TimesOfLores.pixelContext, false);
 
         this.input.maxPointers = 1;
 
