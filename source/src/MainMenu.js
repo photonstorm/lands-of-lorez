@@ -16,6 +16,8 @@ TimesOfLores.MainMenu = function (game) {
 	this.wall7;
 	this.wall8;
 
+	this.walls = [];
+
 	this.lock3;
 	this.lock6;
 
@@ -79,10 +81,17 @@ TimesOfLores.MainMenu.prototype = {
     	this.wall7 = this.add.image(0, 0, 'wall7');
     	this.wall8 = this.add.image(0, 0, 'wall8');
 
+    	//	Map
+    	this.walls = [
+    		[ this.wall1, this.wall3, this.wall2 ],
+    		[ this.wall4, this.wall6, this.wall5 ],
+    		[ this.wall7, this.wall0, this.wall8 ]
+    	];
+
     	//	UI
     	this.healthBG = this.add.image(1, 1, 'healthBG');
     	this.health = this.add.image(1, 1, 'health');
-    	this.health.width = 5;
+    	this.health.width = 8;
     	this.nsew = this.add.image(14, 0, 'nsew', 0);
 
 	    this.levelFont = this.add.retroFont('digits', 4, 6, 'L0123456789');
@@ -119,6 +128,7 @@ TimesOfLores.MainMenu.prototype = {
 	moveForward: function () {
 
 		this.walker.moveForward();
+		console.log('\nmoveForward');
 		this.buildView();
 
 	},
@@ -126,6 +136,7 @@ TimesOfLores.MainMenu.prototype = {
 	moveBackward: function () {
 
 		this.walker.moveBackward();
+		console.log('\nmoveBackward');
 		this.buildView();
 
 	},
@@ -133,6 +144,7 @@ TimesOfLores.MainMenu.prototype = {
 	turnLeft: function () {
 
 		this.walker.turnLeft();
+		console.log('\nturnLeft');
 		this.buildView();
 
 	},
@@ -140,11 +152,14 @@ TimesOfLores.MainMenu.prototype = {
 	turnRight: function () {
 
 		this.walker.turnRight();
+		console.log('\nturnRight');
 		this.buildView();
 
 	},
 
 	buildView: function () {
+
+		console.log('X:', this.walker.location.x, 'Y:', this.walker.location.y, '\n');
 
 		this.wall1.visible = false;
 		this.wall2.visible = false;
@@ -170,111 +185,64 @@ TimesOfLores.MainMenu.prototype = {
 		this.nsew.frame = this.walker.facing;
 
 		var tiles = this.walker.getTiles(3, 3);
-
 		var i = 0;
-		var s = '';
 
 		for (y = 0; y < 3; y++)
 		{
 			for (x = 0; x < 3; x++)
 			{
-				if (tiles[i])
+				i = tiles[y][x];
+
+				if (i === 2)
 				{
-					s = s + tiles[i].index;
+					this.walls[y][x].visible = true;
 				}
-				else
+				else if (i === 3)
 				{
-					s = s + ' ';
+					if (x === 1 && y === 0)
+					{
+						this.lock3.visible = true;
+					}
+					else if (x === 1 && y === 1)
+					{
+						this.lock6.visible = true;
+					}
 				}
-				i++;
-			}
-			
-			console.log(s);
-			s = '';
-		}
+				else if (i === 4)
+				{
+					if (x === 1 && y === 0)
+					{
+						this.key3.visible = true;
+					}
+					else if (x === 1 && y === 1)
+					{
+						this.key6.visible = true;
+					}
+				}
+				else if (i === 5)
+				{
+					if (x === 1 && y === 0)
+					{
+						this.potion3.visible = true;
+					}
+					else if (x === 1 && y === 1)
+					{
+						this.potion6.visible = true;
+					}
+				}
+				else if (i === 6)
+				{
+					if (x === 1 && y === 0)
+					{
+						this.frog3.visible = true;
+					}
+					else if (x === 1 && y === 1)
+					{
+						this.frog6.visible = true;
+					}
+				}
 
-		//	far
-
-		if (tiles[0] && tiles[0].index === 2)
-		{
-			this.wall1.visible = true;
-		}
-
-		if (tiles[1])
-		{
-			if (tiles[1].index === 2)
-			{
-				this.wall3.visible = true;
 			}
-			else if (tiles[1].index === 3)
-			{
-				this.lock3.visible = true;
-			}
-			else if (tiles[1].index === 4)
-			{
-				this.key3.visible = true;
-			}
-			else if (tiles[1].index === 5)
-			{
-				this.potion3.visible = true;
-			}
-			else if (tiles[1].index === 6)
-			{
-				this.frog3.visible = true;
-			}
-		}
-
-		if (tiles[2] && tiles[2].index === 2)
-		{
-			this.wall4.visible = true;
-		}
-
-		//	mid
-
-		if (tiles[3] && tiles[3].index === 2)
-		{
-			this.wall4.visible = true;
-		}
-
-		if (tiles[4])
-		{
-			if (tiles[4].index === 2)
-			{
-				this.wall6.visible = true;
-			}
-			else if (tiles[4].index === 3)
-			{
-				this.lock6.visible = true;
-			}
-			else if (tiles[4].index === 4)
-			{
-				this.key6.visible = true;
-			}
-			else if (tiles[4].index === 5)
-			{
-				this.potion6.visible = true;
-			}
-			else if (tiles[4].index === 6)
-			{
-				this.frog6.visible = true;
-			}
-		}
-
-		if (tiles[5] && tiles[5].index === 2)
-		{
-			this.wall5.visible = true;
-		}
-
-		//	near
-
-		if (tiles[6] && tiles[6].index === 2)
-		{
-			this.wall7.visible = true;
-		}
-
-		if (tiles[8] && tiles[8].index === 2)
-		{
-			this.wall8.visible = true;
 		}
 
 	},
