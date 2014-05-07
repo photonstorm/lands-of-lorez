@@ -46,13 +46,14 @@ module.exports = function (grunt) {
             main: {
                 files: [
                     { src: ['dist/timeoflores.min.js'], dest: 'source/js/timeoflores.min.js' },
-                    { src: ['../phaser/build/phaser.min.js'], dest: 'source/js/phaser.min.js' }
+                    { src: ['../phaser/dist/phaser-arcade-physics.min.js'], dest: 'source/js/phaser-arcade-physics.min.js' }
                 ]
             }
         }
 
     });
 
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'copy']);
+    grunt.registerTask('default', ['concat', 'uglify', 'copy']);
+    grunt.registerTask('OLDdefault', ['clean', 'concat', 'uglify', 'copy']);
 
 };

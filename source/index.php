@@ -32,7 +32,7 @@
         else
         {
     ?>
-    <script src="js/phaser.min.js"></script>
+    <script src="js/phaser-arcade-physics.min.js?u=<?php echo time() ?>"></script>
     <script src="js/timesoflores.min.js?u=<?php echo time() ?>"></script>
     <?php
         }
@@ -47,6 +47,9 @@
 
     <div id="actual-canvas"><canvas id="pixel" width="256" height="256" /></div>
     <div id="game"></div>
+
+    <p>Up / Down to Move Forwards and Backwards.</p>
+    <p>Left / Right to turn 90 degrees.</p>
 
 </body>
 </html>
