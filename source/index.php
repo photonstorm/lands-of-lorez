@@ -33,7 +33,7 @@
         {
     ?>
     <script src="js/phaser-arcade-physics.min.js?u=<?php echo time() ?>"></script>
-    <script src="js/timesoflores.min.js?u=<?php echo time() ?>"></script>
+    <script src="js/timeoflores.min.js?u=<?php echo time() ?>"></script>
     <?php
         }
     ?>
