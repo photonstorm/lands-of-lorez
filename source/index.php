@@ -48,9 +48,20 @@
     <div id="actual-canvas"><canvas id="pixel" width="256" height="256" /></div>
     <div id="game"></div>
 
+    <h2>Keyboard Controls</h2>
+
     <p>Up to Move Forwards.</p>
     <p>Left / Right to turn 90 degrees.</p>
     <p>Down to bring up the Map.</p>
+
+    <h2>Xbox Joypad Controls</h2>
+
+    <p>Press A button to enable Xbox controller support, and then:</p>
+
+    <p>D-PAD UP and DOWN to move Forwards and Backwards</p>
+    <p>D-PAD LEFT and RIGHT to side-step left and right</p>
+    <p>LEFT and RIGHT bumpers to turn 90 degrees</p>
+    <p>X button to display the map</p>
 
 </body>
 </html>

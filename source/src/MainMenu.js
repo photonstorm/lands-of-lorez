@@ -63,38 +63,47 @@ TimesOfLores.MainMenu = function (game) {
 
 TimesOfLores.MainMenu.prototype = {
 
+	createSegment: function (key) {
+
+		var obj = this.add.image(0, 0, key);
+		obj.name = key;
+
+		return obj;
+
+	},
+
 	create: function () {
 
 		//	bg
-    	this.wall0 = this.add.image(0, 0, 'wall0', 0);
+		this.wall0 = this.createSegment('wall0');
 
     	//	far
-    	this.wall1 = this.add.image(0, 0, 'wall1');
-    	this.wall2 = this.add.image(0, 0, 'wall2');
-    	this.wall3 = this.add.image(0, 0, 'wall3');
+		this.wall1 = this.createSegment('wall1');
+		this.wall2 = this.createSegment('wall2');
+		this.wall3 = this.createSegment('wall3');
 
-    	//	far middle items
-    	this.lock3 = this.add.image(0, 0, 'lock3');
-    	this.potion3 = this.add.image(0, 0, 'potion3');
-    	this.key3 = this.add.image(0, 0, 'key3');
-    	this.frog3 = this.add.image(0, 0, 'frog3');
-    	this.gold3 = this.add.image(0, 0, 'gold3');
+    	//	far items
+		this.lock3 = this.createSegment('lock3');
+		this.potion3 = this.createSegment('potion3');
+		this.key3 = this.createSegment('key3');
+		this.frog3 = this.createSegment('frog3');
+		this.gold3 = this.createSegment('gold3');
 
     	//	mid
-    	this.wall4 = this.add.image(0, 0, 'wall4');
-    	this.wall5 = this.add.image(0, 0, 'wall5');
-    	this.wall6 = this.add.image(0, 0, 'wall6');
+		this.wall4 = this.createSegment('wall4');
+		this.wall5 = this.createSegment('wall5');
+		this.wall6 = this.createSegment('wall6');
 
     	//	middle items
-    	this.lock6 = this.add.image(0, 0, 'lock6');
-    	this.potion6 = this.add.image(0, 0, 'potion6');
-    	this.key6 = this.add.image(0, 0, 'key6');
-    	this.frog6 = this.add.image(0, 0, 'frog6');
-    	this.gold6 = this.add.image(0, 0, 'gold6');
+		this.lock6 = this.createSegment('lock6');
+		this.potion6 = this.createSegment('potion6');
+		this.key6 = this.createSegment('key6');
+		this.frog6 = this.createSegment('frog6');
+		this.gold6 = this.createSegment('gold6');
 
     	//	near
-    	this.wall7 = this.add.image(0, 0, 'wall7');
-    	this.wall8 = this.add.image(0, 0, 'wall8');
+		this.wall7 = this.createSegment('wall7');
+		this.wall8 = this.createSegment('wall8');
 
     	//	Map
     	this.walls = [
@@ -138,6 +147,31 @@ TimesOfLores.MainMenu.prototype = {
 
 		this.buildView();
 
+		//	GamePad
+
+		this.input.gamepad.start();
+
+    	var leftButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_LEFT_BUMPER);
+    	leftButton.onDown.add(this.turnLeft, this);
+
+    	var rightButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_RIGHT_BUMPER);
+    	rightButton.onDown.add(this.turnRight, this);
+
+    	var upButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_UP);
+    	upButton.onDown.add(this.moveForward, this);
+
+    	var downButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_DOWN);
+    	downButton.onDown.add(this.moveBackward, this);
+
+    	var stepLeftButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_LEFT);
+    	stepLeftButton.onDown.add(this.stepLeft, this);
+
+    	var stepRightButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_RIGHT);
+    	stepRightButton.onDown.add(this.stepRight, this);
+
+    	var xButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_X);
+    	xButton.onDown.add(this.showMap, this);
+
     	this.cursors = game.input.keyboard.createCursorKeys();
 
     	this.cursors.up.onDown.add(this.moveForward, this);
@@ -176,6 +210,73 @@ TimesOfLores.MainMenu.prototype = {
 
 	},
 
+	canPass: function (direction) {
+
+		if (direction === 0)
+		{
+			if (this.walker.getTileAhead().index === 3)
+			{
+				if (this.keys > 0)
+				{
+					this.keys--;
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		else if (direction === 1)
+		{
+			if (this.walker.getTileLeft().index === 3)
+			{
+				if (this.keys > 0)
+				{
+					this.keys--;
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		else if (direction === 2)
+		{
+			if (this.walker.getTileBehind().index === 3)
+			{
+				if (this.keys > 0)
+				{
+					this.keys--;
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		else if (direction === 3)
+		{
+			if (this.walker.getTileRight().index === 3)
+			{
+				if (this.keys > 0)
+				{
+					this.keys--;
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		
+		return true;
+
+	},
+
 	moveForward: function () {
 
 		if (this.mapImage.visible)
@@ -184,23 +285,7 @@ TimesOfLores.MainMenu.prototype = {
 			return;
 		}
 
-		//	Way ahead locked?
-		if (this.walker.getTileAhead().index === 3)
-		{
-			if (this.keys > 0)
-			{
-				this.keys--;
-			}
-
-			if (this.walker.moveForward())
-			{
-				console.log('\nmoveForward through locked door');
-
-				this.buildView();
-				this.checkCurrentTile();
-			}
-		}
-		else
+		if (this.canPass(0))
 		{
 			if (this.walker.moveForward())
 			{
@@ -215,12 +300,64 @@ TimesOfLores.MainMenu.prototype = {
 
 	moveBackward: function () {
 
-		this.walker.moveBackward();
+		if (this.mapImage.visible)
+		{
+			this.hideMap();
+			return;
+		}
 
-		console.log('\nmoveBackward');
+		if (this.canPass(2))
+		{
+			if (this.walker.moveBackward())
+			{
+				console.log('\nmoveBackward');
 
-		this.buildView();
-		this.checkCurrentTile();
+				this.buildView();
+				this.checkCurrentTile();
+			}
+		}
+
+	},
+
+	stepLeft: function () {
+
+		if (this.mapImage.visible)
+		{
+			this.hideMap();
+			return;
+		}
+
+		if (this.canPass(1))
+		{
+			if (this.walker.moveLeft())
+			{
+				console.log('\nstepLeft');
+
+				this.buildView();
+				this.checkCurrentTile();
+			}
+		}
+
+	},
+
+	stepRight: function () {
+
+		if (this.mapImage.visible)
+		{
+			this.hideMap();
+			return;
+		}
+
+		if (this.canPass(3))
+		{
+			if (this.walker.moveRight())
+			{
+				console.log('\nstepRight');
+
+				this.buildView();
+				this.checkCurrentTile();
+			}
+		}
 
 	},
 
@@ -256,30 +393,37 @@ TimesOfLores.MainMenu.prototype = {
 
 	},
 
-	buildView: function () {
+	showWall: function (wall) {
 
-		console.log('X:', this.walker.location.x, 'Y:', this.walker.location.y, '\n');
+		wall.visible = true;
 
-		if (this.wall0.frame === 0)
+		if (wall.key !== 'wall3' && wall.key !== 'wall6')
 		{
-			this.wall0.frame = 1;
-		}
-		else
-		{
-			this.wall0.frame = 0;
+			if (wall.frame === 0)
+			{
+				wall.frame = 1;
+			}
+			else
+			{
+				wall.frame = 0;
+			}
 		}
 
-		this.wall1.visible = false;
-		this.wall2.visible = false;
-		this.wall3.visible = false;
-		this.wall4.visible = false;
-		this.wall5.visible = false;
-		this.wall6.visible = false;
-		this.wall7.visible = false;
-		this.wall8.visible = false;
+	},
+
+	hideWalls: function () {
+
+		for (var i = 0; i < 9; i++)
+		{
+			this['wall' + i].visible = false;
+		}
 
 		this.lock3.visible = false;
 		this.lock6.visible = false;
+
+	},
+
+	hideItems: function () {
 
 		this.key3.visible = false;
 		this.key6.visible = false;
@@ -292,6 +436,17 @@ TimesOfLores.MainMenu.prototype = {
 
 		this.gold3.visible = false;
 		this.gold6.visible = false;
+
+	},
+
+	buildView: function () {
+
+		console.log('X:', this.walker.location.x, 'Y:', this.walker.location.y, '\n');
+
+		this.hideWalls();
+		this.hideItems();
+
+		this.showWall(this.wall0);
 
 		this.nsew.frame = this.walker.facing;
 
@@ -306,7 +461,7 @@ TimesOfLores.MainMenu.prototype = {
 
 				if (i === 2)
 				{
-					this.walls[y][x].visible = true;
+					this.showWall(this.walls[y][x]);
 				}
 				else if (i === 3)
 				{
@@ -320,7 +475,7 @@ TimesOfLores.MainMenu.prototype = {
 					}
 					else
 					{
-						this.walls[y][x].visible = true;
+						this.showWall(this.walls[y][x]);
 					}
 				}
 				else if (i === 4)
