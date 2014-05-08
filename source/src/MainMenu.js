@@ -182,6 +182,7 @@ TimesOfLores.MainMenu.prototype = {
 	    this.hitFont = this.add.retroFont('digits', 4, 6, 'L0123456789-+');
 	    this.hitFont.text = '0';
 	    this.hitImage = this.fightPanel.create(1, 5, this.hitFont);
+		this.hitTween = this.add.tween(this.hitMarker);
 
     	this.fightPanel.visible = false;
 
@@ -703,7 +704,7 @@ TimesOfLores.MainMenu.prototype = {
 
 		this.hitMarker.x = 4;
 
-		this.hitTween = this.add.tween(this.hitMarker).to( { x: 25 }, 1500, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000, true);
+		this.hitTween = this.add.tween(this.hitMarker).to( { x: 25 }, 1000, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000, true);
 
 		//	tricky!
 		// this.add.tween(this.hitMarker).to( { x: 25 }, 1000, Phaser.Easing.Circular.InOut, true, 0, 1000, true);
@@ -712,7 +713,7 @@ TimesOfLores.MainMenu.prototype = {
 
 	hit: function () {
 
-		if (this.isFighting && this.yourFightMove)
+		if (this.isFighting && this.yourFightMove && this.hitTween.isRunning)
 		{
 			this.hitTween.stop();
 
@@ -720,16 +721,25 @@ TimesOfLores.MainMenu.prototype = {
 
 			console.log('You hit. Marker at', x);
 
+			this.hitImage.x = 21;
+			this.hitImage.y = 7;
+			this.hitImage.visible = true;
+
 			if (x >= 12 && x <= 16)
 			{
 				this.enemyHealth -= this.swordStrength;
 
+				this.hitFont.text = '-' + this.swordStrength;
+
 				console.log('BOOM!', this.swordStrength, 'damage, enemy at', this.enemyHealth);
-			
+		
 				if (this.enemyHealth > 0)
 				{
 					this.enemyHealthFill.width = this.enemyHealth;
-					this.enemyAttacks();
+					var tween = this.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
+					tween.onComplete.add(this.enemyAttacks, this);
+					tween.start();
+					// this.enemyAttacks();
 				}
 				else
 				{
@@ -751,7 +761,11 @@ TimesOfLores.MainMenu.prototype = {
 			{
 				//	You missed!
 				console.log('You missed');
-				this.enemyAttacks();
+				this.hitFont.text = '-0';
+				var tween = this.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
+				tween.onComplete.add(this.enemyAttacks, this);
+				tween.start();
+				// this.enemyAttacks();
 			}
 		}
 
@@ -764,8 +778,7 @@ TimesOfLores.MainMenu.prototype = {
 		this.yourFightMove = false;
 
 		this.hitImage.x = 1;
-		this.hitImage.y = 5;
-		this.hitImage.alpha = 1;
+		this.hitImage.y = 7;
 		this.hitImage.visible = true;
 
 		//	Should be set by the enemy class (strength, etc)
