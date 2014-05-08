@@ -26,19 +26,25 @@ TimesOfLores.MainMenu = function (game) {
 	this.lock3;
 	this.lock6;
 
+	this.potion0;
 	this.potion3;
 	this.potion6;
 
+	this.key0;
 	this.key3;
 	this.key6;
 
 	this.gold3;
 	this.gold6;
 
+	this.frog0;
 	this.frog3;
 	this.frog6;
 
 	//	UI
+
+	this.statusPanel;
+
 	this.nsew;
 
 	this.health = 10;
@@ -56,6 +62,24 @@ TimesOfLores.MainMenu = function (game) {
 	this.gold = 0;
 	this.goldFont;
 	this.goldImage;
+
+	this.fightPanel;
+
+	this.isFighting = false;
+	this.yourFightMove = false;
+
+	this.enemyHealth = 10;
+	this.enemyHealthFill;
+	this.enemyHealthBG;
+
+	this.hitMarker;
+	this.hitBar;
+	this.hitTween;
+	this.hitFont;
+	this.hitImage;
+
+	this.swordStrength = 3;
+	this.armorStrength = 2;
 
 	this.cursors;
 
@@ -105,6 +129,11 @@ TimesOfLores.MainMenu.prototype = {
 		this.wall7 = this.createSegment('wall7');
 		this.wall8 = this.createSegment('wall8');
 
+    	//	near items
+		this.potion0 = this.createSegment('potion0');
+		this.key0 = this.createSegment('key0');
+		this.frog0 = this.createSegment('frog0');
+
     	//	Map
     	this.walls = [
     		[ this.wall1, this.wall3, this.wall2 ],
@@ -113,31 +142,48 @@ TimesOfLores.MainMenu.prototype = {
     	];
 
     	//	UI
+    	this.statusPanel = this.add.group();
+
     	this.healthBG = this.add.image(1, 1, 'healthBG');
     	this.healthFill = this.add.image(1, 1, 'health');
     	this.health = 10;
 
-    	this.nsew = this.add.image(14, 0, 'nsew', 0);
+    	this.nsew = this.statusPanel.create(14, 0, 'nsew', 0);
 
-	    this.levelFont = this.add.retroFont('digits', 4, 6, 'L0123456789');
+	    this.levelFont = this.add.retroFont('digits', 4, 6, 'L0123456789-+');
 	    this.levelFont.text = 'L1';
-	    this.levelImage = this.add.image(24, 0, this.levelFont);
+	    this.levelImage = this.statusPanel.create(24, 0, this.levelFont);
 
-	    this.panel = this.add.image(0, 25, 'panel');
+	    this.panel = this.statusPanel.create(0, 25, 'panel');
 
-	    this.keysFont = this.add.retroFont('digits', 4, 6, 'L0123456789');
+	    this.keysFont = this.add.retroFont('digits', 4, 6, 'L0123456789-+');
 	    this.keysFont.text = '0';
-	    this.keysImage = this.add.image(20, 26, this.keysFont);
+	    this.keysImage = this.statusPanel.create(20, 26, this.keysFont);
 
-	    this.goldFont = this.add.retroFont('digits', 4, 6, 'L0123456789');
+	    this.goldFont = this.add.retroFont('digits', 4, 6, 'L0123456789-+');
 	    this.goldFont.text = '0';
-	    this.goldImage = this.add.image(5, 26, this.goldFont);
+	    this.goldImage = this.statusPanel.create(5, 26, this.goldFont);
 
 	    //	Minimap
 	    this.mapBMD = this.make.bitmapData(32, 32);
 	    this.mapImage = this.add.image(0, 0, this.mapBMD);
 		this.mapImage.visible = false;
 
+		//	Fight Screen
+		this.fightPanel = this.add.group();
+
+    	this.enemyHealthBG = this.fightPanel.create(21, 1, 'enemyBG');
+    	this.enemyHealthFill = this.fightPanel.create(21, 1, 'enemy');
+    	this.enemyHealth = 10;
+
+    	this.hitBar = this.fightPanel.create(4, 28, 'gauge');
+    	this.hitMarker = this.fightPanel.create(4, 26, 'attack');
+
+	    this.hitFont = this.add.retroFont('digits', 4, 6, 'L0123456789-+');
+	    this.hitFont.text = '0';
+	    this.hitImage = this.fightPanel.create(1, 5, this.hitFont);
+
+    	this.fightPanel.visible = false;
 
     	this.map = this.add.tilemap('map');
 
@@ -168,6 +214,9 @@ TimesOfLores.MainMenu.prototype = {
 
     	var stepRightButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_RIGHT);
     	stepRightButton.onDown.add(this.stepRight, this);
+
+    	var aButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_A);
+    	aButton.onDown.add(this.hit, this);
 
     	var xButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_X);
     	xButton.onDown.add(this.showMap, this);
@@ -200,11 +249,26 @@ TimesOfLores.MainMenu.prototype = {
 				this.keys++;
 				this.walker.putTile(-1);
 			}
+			else if (tile.index === 5)
+			{
+				//	Potion
+				if (this.health < 10)
+				{
+					this.health = 10;
+					this.healthFill.width = 10;
+					this.walker.putTile(-1);
+				}
+			}
 			else if (tile.index === 8)
 			{
 				//	Gold
 				this.gold++;
 				this.walker.putTile(-1);
+			}
+			else if (tile.index === 6)
+			{
+				//	Baddie!
+				this.showFightScreen();
 			}
 		}
 
@@ -277,13 +341,32 @@ TimesOfLores.MainMenu.prototype = {
 
 	},
 
-	moveForward: function () {
+	checkKey: function () {
 
 		if (this.mapImage.visible)
 		{
 			this.hideMap();
-			return;
+			return false;
 		}
+
+		if (this.isFighting)
+		{
+			if (this.yourFightMove)
+			{
+				this.hit();
+			}
+				
+			return false;
+		}
+
+		//	They are allowed to move
+		return true;
+
+	},
+
+	moveForward: function () {
+
+		if (!this.checkKey()) { return; }
 
 		if (this.canPass(0))
 		{
@@ -300,11 +383,7 @@ TimesOfLores.MainMenu.prototype = {
 
 	moveBackward: function () {
 
-		if (this.mapImage.visible)
-		{
-			this.hideMap();
-			return;
-		}
+		if (!this.checkKey()) { return; }
 
 		if (this.canPass(2))
 		{
@@ -321,11 +400,7 @@ TimesOfLores.MainMenu.prototype = {
 
 	stepLeft: function () {
 
-		if (this.mapImage.visible)
-		{
-			this.hideMap();
-			return;
-		}
+		if (!this.checkKey()) { return; }
 
 		if (this.canPass(1))
 		{
@@ -342,11 +417,7 @@ TimesOfLores.MainMenu.prototype = {
 
 	stepRight: function () {
 
-		if (this.mapImage.visible)
-		{
-			this.hideMap();
-			return;
-		}
+		if (!this.checkKey()) { return; }
 
 		if (this.canPass(3))
 		{
@@ -363,11 +434,7 @@ TimesOfLores.MainMenu.prototype = {
 
 	turnLeft: function () {
 
-		if (this.mapImage.visible)
-		{
-			this.hideMap();
-			return;
-		}
+		if (!this.checkKey()) { return; }
 
 		this.walker.turnLeft();
 
@@ -379,11 +446,7 @@ TimesOfLores.MainMenu.prototype = {
 
 	turnRight: function () {
 
-		if (this.mapImage.visible)
-		{
-			this.hideMap();
-			return;
-		}
+		if (!this.checkKey()) { return; }
 
 		this.walker.turnRight();
 
@@ -425,12 +488,15 @@ TimesOfLores.MainMenu.prototype = {
 
 	hideItems: function () {
 
+		this.key0.visible = false;
 		this.key3.visible = false;
 		this.key6.visible = false;
 
+		this.potion0.visible = false;
 		this.potion3.visible = false;
 		this.potion6.visible = false;
 
+		this.frog0.visible = false;
 		this.frog3.visible = false;
 		this.frog6.visible = false;
 
@@ -488,6 +554,10 @@ TimesOfLores.MainMenu.prototype = {
 					{
 						this.key6.visible = true;
 					}
+					else if (x === 1 && y === 2)
+					{
+						this.key0.visible = true;
+					}
 				}
 				else if (i === 5)
 				{
@@ -499,6 +569,10 @@ TimesOfLores.MainMenu.prototype = {
 					{
 						this.potion6.visible = true;
 					}
+					else if (x === 1 && y === 2)
+					{
+						this.potion0.visible = true;
+					}
 				}
 				else if (i === 6)
 				{
@@ -509,6 +583,10 @@ TimesOfLores.MainMenu.prototype = {
 					else if (x === 1 && y === 1)
 					{
 						this.frog6.visible = true;
+					}
+					else if (x === 1 && y === 2)
+					{
+						this.frog0.visible = true;
 					}
 				}
 				else if (i === 8)
@@ -529,11 +607,7 @@ TimesOfLores.MainMenu.prototype = {
 
 	showMap: function () {
 
-		if (this.mapImage.visible)
-		{
-			this.hideMap();
-			return;
-		}
+		if (!this.checkKey()) { return; }
 
 		this.buildMap();
 
@@ -601,6 +675,128 @@ TimesOfLores.MainMenu.prototype = {
 		//	Finally the player
 		this.mapBMD.rect(data.walker.x * 2, data.walker.y * 2, 2, 3, this.mapShadow);
 		this.mapBMD.rect(data.walker.x * 2, data.walker.y * 2, 2, 2, '#ffffff');
+
+	},
+
+	showFightScreen: function () {
+
+		this.statusPanel.visible = false;
+		this.fightPanel.visible = true;
+
+		this.hitImage.visible = false;
+
+		this.enemyHealth = 10;
+		this.enemyHealthFill.width = 10;
+		this.enemyHealthFill.visible = true;
+
+		this.isFighting = true;
+
+		this.yourAttack();
+
+	},
+
+	yourAttack: function () {
+
+		console.log('yourAttack');
+
+		this.yourFightMove = true;
+
+		this.hitMarker.x = 4;
+
+		this.hitTween = this.add.tween(this.hitMarker).to( { x: 25 }, 1500, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000, true);
+
+		//	tricky!
+		// this.add.tween(this.hitMarker).to( { x: 25 }, 1000, Phaser.Easing.Circular.InOut, true, 0, 1000, true);
+
+	},
+
+	hit: function () {
+
+		if (this.isFighting && this.yourFightMove)
+		{
+			this.hitTween.stop();
+
+			var x = Math.floor(this.hitMarker.x);
+
+			console.log('You hit. Marker at', x);
+
+			if (x >= 12 && x <= 16)
+			{
+				this.enemyHealth -= this.swordStrength;
+
+				console.log('BOOM!', this.swordStrength, 'damage, enemy at', this.enemyHealth);
+			
+				if (this.enemyHealth > 0)
+				{
+					this.enemyHealthFill.width = this.enemyHealth;
+					this.enemyAttacks();
+				}
+				else
+				{
+					console.log('enemy DEAD');
+
+					//	Dead!
+					this.enemyHealthFill.visible = false;
+					this.gold += this.game.rnd.integerInRange(1, 5);
+					this.walker.putTile(-1);
+
+					//	Show death sequence, but until then ...
+					this.frog0.visible = false;
+					this.isFighting = false;
+					this.fightPanel.visible = false;
+					this.statusPanel.visible = true;
+				}
+			}
+			else
+			{
+				//	You missed!
+				console.log('You missed');
+				this.enemyAttacks();
+			}
+		}
+
+	},
+
+	enemyAttacks: function () {
+
+		console.log('enemyAttacks');
+
+		this.yourFightMove = false;
+
+		this.hitImage.x = 1;
+		this.hitImage.y = 5;
+		this.hitImage.alpha = 1;
+		this.hitImage.visible = true;
+
+		//	Should be set by the enemy class (strength, etc)
+		var amt = this.game.rnd.integerInRange(0, 2);
+
+		this.hitFont.text = '-' + amt;
+
+		var tween = this.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
+
+		if (amt > 0)
+		{
+			this.health -= amt;
+
+			console.log('enemy hit you for', amt, 'health', this.health);
+
+			if (this.health > 0)
+			{
+				this.healthFill.width = this.health;
+				tween.onComplete.add(this.yourAttack, this);
+				tween.start();
+			}
+			else
+			{
+				console.log('YOU ARE DEAD!');
+			}
+		}
+		else
+		{
+			tween.onComplete.add(this.yourAttack, this);
+			tween.start();
+		}
 
 	},
 

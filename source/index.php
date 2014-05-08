@@ -45,6 +45,8 @@
 </head>
 <body>
 
+    <h2>Times of Lores - #lowrez game jam entry</h2>
+
     <div id="actual-canvas"><canvas id="pixel" width="256" height="256" /></div>
     <div id="game"></div>
 

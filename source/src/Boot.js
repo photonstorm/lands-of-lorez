@@ -29,6 +29,8 @@ TimesOfLores.Boot.prototype = {
 
         TimesOfLores.pixelCanvas = document.getElementById('pixel');
         TimesOfLores.pixelContext = TimesOfLores.pixelCanvas.getContext('2d');
+        TimesOfLores.width = TimesOfLores.pixelCanvas.width;
+        TimesOfLores.height = TimesOfLores.pixelCanvas.height;
 
         Phaser.Canvas.setSmoothingEnabled(TimesOfLores.pixelContext, false);
 

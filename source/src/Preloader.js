@@ -28,12 +28,15 @@ TimesOfLores.Preloader.prototype = {
 		this.load.image('lock3', 'images/wall3-lock.png');
 		this.load.image('lock6', 'images/wall6-lock.png');
 
+		this.load.image('key0', 'images/key0.png');
 		this.load.image('key3', 'images/key3.png');
 		this.load.image('key6', 'images/key6.png');
 
+		this.load.image('potion0', 'images/potion0.png');
 		this.load.image('potion3', 'images/potion3.png');
 		this.load.image('potion6', 'images/potion6.png');
 
+		this.load.image('frog0', 'images/frog0.png');
 		this.load.image('frog3', 'images/frog3.png');
 		this.load.image('frog6', 'images/frog6.png');
 
