@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 
         timeoflores: [
 
-            '../phaser/plugins/TilemapWalker.js',
+            '../phaser-plugins/TilemapWalker/TilemapWalker.js',
 
             'source/src/Boot.js',
             'source/src/Preloader.js',

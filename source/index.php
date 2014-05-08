@@ -22,7 +22,7 @@
             $path = '../../phaser';
             require('../../phaser/build/config.php');
     ?>
-    <script src="../../phaser/plugins/TilemapWalker.js"></script>
+    <script src="../../phaser-plugins/TilemapWalker/TilemapWalker.js"></script>
     <script src="src/Boot.js"></script>
     <script src="src/Preloader.js"></script>
     <script src="src/MainMenu.js"></script>

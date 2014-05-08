@@ -16,6 +16,11 @@ TimesOfLores.MainMenu = function (game) {
 	this.wall7;
 	this.wall8;
 
+	this.mapBMD;
+	this.mapImage;
+	this.mapColors = [ '#000000', '#6e6e6e', '#4e3d33', '#95a8be', '#fedd00', '#64b732', '#ff3d6a' ];
+	this.mapShadow = '#3e281b';
+
 	this.walls = [];
 
 	this.lock3;
@@ -61,7 +66,7 @@ TimesOfLores.MainMenu.prototype = {
 	create: function () {
 
 		//	bg
-    	this.wall0 = this.add.image(0, 0, 'wall0');
+    	this.wall0 = this.add.image(0, 0, 'wall0', 0);
 
     	//	far
     	this.wall1 = this.add.image(0, 0, 'wall1');
@@ -119,6 +124,12 @@ TimesOfLores.MainMenu.prototype = {
 	    this.goldFont.text = '0';
 	    this.goldImage = this.add.image(5, 26, this.goldFont);
 
+	    //	Minimap
+	    this.mapBMD = this.make.bitmapData(32, 32);
+	    this.mapImage = this.add.image(0, 0, this.mapBMD);
+		this.mapImage.visible = false;
+
+
     	this.map = this.add.tilemap('map');
 
 	    this.map.setCollisionByIndex(2);
@@ -130,7 +141,7 @@ TimesOfLores.MainMenu.prototype = {
     	this.cursors = game.input.keyboard.createCursorKeys();
 
     	this.cursors.up.onDown.add(this.moveForward, this);
-    	this.cursors.down.onDown.add(this.moveBackward, this);
+    	this.cursors.down.onDown.add(this.showMap, this);
     	this.cursors.left.onDown.add(this.turnLeft, this);
     	this.cursors.right.onDown.add(this.turnRight, this);
 
@@ -167,6 +178,12 @@ TimesOfLores.MainMenu.prototype = {
 
 	moveForward: function () {
 
+		if (this.mapImage.visible)
+		{
+			this.hideMap();
+			return;
+		}
+
 		//	Way ahead locked?
 		if (this.walker.getTileAhead().index === 3)
 		{
@@ -175,21 +192,23 @@ TimesOfLores.MainMenu.prototype = {
 				this.keys--;
 			}
 
-			this.walker.moveForward();
+			if (this.walker.moveForward())
+			{
+				console.log('\nmoveForward through locked door');
 
-			console.log('\nmoveForward through locked door');
-
-			this.buildView();
-			this.checkCurrentTile();
+				this.buildView();
+				this.checkCurrentTile();
+			}
 		}
 		else
 		{
-			this.walker.moveForward();
+			if (this.walker.moveForward())
+			{
+				console.log('\nmoveForward');
 
-			console.log('\nmoveForward');
-
-			this.buildView();
-			this.checkCurrentTile();
+				this.buildView();
+				this.checkCurrentTile();
+			}
 		}
 
 	},
@@ -207,6 +226,12 @@ TimesOfLores.MainMenu.prototype = {
 
 	turnLeft: function () {
 
+		if (this.mapImage.visible)
+		{
+			this.hideMap();
+			return;
+		}
+
 		this.walker.turnLeft();
 
 		console.log('\nturnLeft');
@@ -216,6 +241,12 @@ TimesOfLores.MainMenu.prototype = {
 	},
 
 	turnRight: function () {
+
+		if (this.mapImage.visible)
+		{
+			this.hideMap();
+			return;
+		}
 
 		this.walker.turnRight();
 
@@ -228,6 +259,15 @@ TimesOfLores.MainMenu.prototype = {
 	buildView: function () {
 
 		console.log('X:', this.walker.location.x, 'Y:', this.walker.location.y, '\n');
+
+		if (this.wall0.frame === 0)
+		{
+			this.wall0.frame = 1;
+		}
+		else
+		{
+			this.wall0.frame = 0;
+		}
 
 		this.wall1.visible = false;
 		this.wall2.visible = false;
@@ -278,6 +318,10 @@ TimesOfLores.MainMenu.prototype = {
 					{
 						this.lock6.visible = true;
 					}
+					else
+					{
+						this.walls[y][x].visible = true;
+					}
 				}
 				else if (i === 4)
 				{
@@ -325,6 +369,83 @@ TimesOfLores.MainMenu.prototype = {
 				}
 			}
 		}
+
+	},
+
+	showMap: function () {
+
+		if (this.mapImage.visible)
+		{
+			this.hideMap();
+			return;
+		}
+
+		this.buildMap();
+
+		this.mapImage.visible = true;
+
+	},
+
+	hideMap: function () {
+
+		this.mapImage.visible = false;
+
+	},
+
+	buildMap: function () {
+
+		this.mapBMD.fill(110, 110, 110, 1);
+
+		var data = this.walker.getMiniMap(16, 16);
+		var i = 0;
+		var dx = 0;
+		var dy = 0;
+
+		//	Paint down the walls
+		for (y = 0; y < 16; y++)
+		{
+			for (x = 0; x < 16; x++)
+			{
+				i = data.tiles[y][x];
+
+				if (i >= 0 && i <= 2)
+				{
+					this.mapBMD.rect(dx, dy, 2, 2, this.mapColors[i]);
+				}
+
+				dx += 2;
+			}
+
+			dx = 0;
+			dy += 2;
+		}
+
+		dx = 0;
+		dy = 0;
+
+		//	Then the objects
+		for (y = 0; y < 16; y++)
+		{
+			for (x = 0; x < 16; x++)
+			{
+				i = data.tiles[y][x];
+
+				if (i > 2 && i < 7)
+				{
+					this.mapBMD.rect(dx, dy, 2, 3, this.mapShadow);
+					this.mapBMD.rect(dx, dy, 2, 2, this.mapColors[i]);
+				}
+
+				dx += 2;
+			}
+
+			dx = 0;
+			dy += 2;
+		}
+
+		//	Finally the player
+		this.mapBMD.rect(data.walker.x * 2, data.walker.y * 2, 2, 3, this.mapShadow);
+		this.mapBMD.rect(data.walker.x * 2, data.walker.y * 2, 2, 2, '#ffffff');
 
 	},
 
