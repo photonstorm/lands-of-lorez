@@ -48,8 +48,9 @@
     <div id="actual-canvas"><canvas id="pixel" width="256" height="256" /></div>
     <div id="game"></div>
 
-    <p>Up / Down to Move Forwards and Backwards.</p>
+    <p>Up to Move Forwards.</p>
     <p>Left / Right to turn 90 degrees.</p>
+    <p>Down to bring up the Map.</p>
 
 </body>
 </html>
