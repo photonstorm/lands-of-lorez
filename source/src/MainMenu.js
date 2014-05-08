@@ -715,17 +715,17 @@ TimesOfLores.MainMenu.prototype = {
 
 		if (this.isFighting && this.yourFightMove && this.hitTween.isRunning)
 		{
-			this.hitTween.stop();
-
 			var x = Math.floor(this.hitMarker.x);
 
 			console.log('You hit. Marker at', x);
+
+			this.hitTween.stop();
 
 			this.hitImage.x = 21;
 			this.hitImage.y = 7;
 			this.hitImage.visible = true;
 
-			if (x >= 12 && x <= 16)
+			if (x >= 11 && x <= 17)
 			{
 				this.enemyHealth -= this.swordStrength;
 
