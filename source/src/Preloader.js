@@ -25,23 +25,10 @@ TimesOfLores.Preloader.prototype = {
 		this.load.spritesheet('wall7', 'images/wall7.png', 32, 32);
 		this.load.spritesheet('wall8', 'images/wall8.png', 32, 32);
 
-		this.load.image('lock3', 'images/wall3-lock.png');
-		this.load.image('lock6', 'images/wall6-lock.png');
-
-		this.load.image('key0', 'images/key0.png');
-		this.load.image('key3', 'images/key3.png');
-		this.load.image('key6', 'images/key6.png');
-
-		this.load.image('potion0', 'images/potion0.png');
-		this.load.image('potion3', 'images/potion3.png');
-		this.load.image('potion6', 'images/potion6.png');
-
-		this.load.image('frog0', 'images/frog0.png');
-		this.load.image('frog3', 'images/frog3.png');
-		this.load.image('frog6', 'images/frog6.png');
-
-		this.load.image('gold3', 'images/gold3.png');
-		this.load.image('gold6', 'images/gold6.png');
+		this.load.spritesheet('itemsFar', 'images/itemsFar.png', 32, 32);
+		this.load.spritesheet('itemsMid', 'images/itemsMid.png', 32, 32);
+		this.load.spritesheet('itemsNear', 'images/itemsNear.png', 32, 32);
+		this.load.spritesheet('itemsPickUp', 'images/itemsPickUp.png', 32, 32);
 
 		this.load.spritesheet('nsew', 'images/nsew.png', 5, 6);
 		
@@ -65,7 +52,8 @@ TimesOfLores.Preloader.prototype = {
 
 		this.preloadBar.cropEnabled = false;
 
-		this.state.start('MainMenu');
+		// this.state.start('MainMenu');
+		this.state.start('Game');
 
 	},
 
@@ -76,6 +64,12 @@ TimesOfLores.Preloader.prototype = {
 			// this.ready = true;
 			// this.state.start('MainMenu');
 		// }
+
+	},
+
+	render: function () {
+
+		TimesOfLores.pixelContext.drawImage(game.canvas, 0, 0, 32, 32, 0, 0, TimesOfLores.width, TimesOfLores.height);
 
 	}
 

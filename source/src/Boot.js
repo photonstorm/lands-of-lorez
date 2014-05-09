@@ -1,9 +1,6 @@
 TimesOfLores = {
 
-    /* Here we've just got some global level vars that persist regardless of State swaps */
     score: 0,
-
-    /* If the music in your game needs to play through-out a few State swaps, then you could reference it here */
     music: null,
 
     width: 256,
@@ -56,19 +53,8 @@ window.onload = function () {
 
     game.state.add('Boot', TimesOfLores.Boot);
     game.state.add('Preloader', TimesOfLores.Preloader);
-    game.state.add('MainMenu', TimesOfLores.MainMenu);
-
-    // game.state.add('Bomber.Preloader', Bomber.Preloader);
-    // game.state.add('Bomber.MainMenu', Bomber.MainMenu);
-    // game.state.add('Bomber.Game', Bomber.Game);
-
-    // game.state.add('MissileCommand.Preloader', MissileCommand.Preloader);
-    // game.state.add('MissileCommand.MainMenu', MissileCommand.MainMenu);
-    // game.state.add('MissileCommand.Game', MissileCommand.Game);
-
-    // game.state.add('Snake.Preloader', Snake.Preloader);
-    // game.state.add('Snake.MainMenu', Snake.MainMenu);
-    // game.state.add('Snake.Game', Snake.Game);
+    game.state.add('Game', TimesOfLores.Game);
+    // game.state.add('MainMenu', TimesOfLores.MainMenu);
 
     game.state.start('Boot');
 

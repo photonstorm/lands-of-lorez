@@ -25,7 +25,12 @@
     <script src="../../phaser-plugins/TilemapWalker/TilemapWalker.js"></script>
     <script src="src/Boot.js"></script>
     <script src="src/Preloader.js"></script>
-    <script src="src/MainMenu.js"></script>
+    <script src="src/Character.js"></script>
+    <script src="src/Map.js"></script>
+    <script src="src/MiniMap.js"></script>
+    <script src="src/FightScreen.js"></script>
+    <script src="src/UI.js"></script>
+    <script src="src/Game.js"></script>
 
     <?php
         }
