@@ -14,6 +14,9 @@ TimesOfLores.Game = function (game) {
 
     this.cursors;
 
+    this._location = new Phaser.Point();
+    this._facing = 0;
+
 };
 
 TimesOfLores.Game.prototype = {
@@ -25,6 +28,9 @@ TimesOfLores.Game.prototype = {
 
         //  1 x 14 = map start coordinates (move to per level var)
         this.walker = new Phaser.Plugin.TilemapWalker(this.game, this.levelData, this.levelData.currentLayer, 1, 14);
+
+        this._location.copyFrom(this.walker.location);
+        this._facing = this.walker.facing;
 
         this.character = new TimesOfLores.Character(this, 10, 3, 6);
         this.map = new TimesOfLores.Map(this);
@@ -39,6 +45,32 @@ TimesOfLores.Game.prototype = {
         this.cursors.left.onDown.add(this.turnLeft, this);
         this.cursors.right.onDown.add(this.turnRight, this);
 
+        this.input.gamepad.start();
+
+        var leftButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_LEFT_BUMPER);
+        leftButton.onDown.add(this.turnLeft, this);
+
+        var rightButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_RIGHT_BUMPER);
+        rightButton.onDown.add(this.turnRight, this);
+
+        var upButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_UP);
+        upButton.onDown.add(this.moveForward, this);
+
+        var downButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_DOWN);
+        downButton.onDown.add(this.moveBackward, this);
+
+        var stepLeftButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_LEFT);
+        stepLeftButton.onDown.add(this.stepLeft, this);
+
+        var stepRightButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_RIGHT);
+        stepRightButton.onDown.add(this.stepRight, this);
+
+        var aButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_A);
+        aButton.onDown.add(this.fight.hit, this.fight);
+
+        var xButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_X);
+        xButton.onDown.add(this.showMap, this);
+
         this.map.refresh();
 
     },
@@ -47,10 +79,42 @@ TimesOfLores.Game.prototype = {
 
         if (!this.checkKey()) { return; }
 
-        if (this.map.canPass(0) && this.walker.moveForward())
+        if (this.map.canPass(0))
         {
-            this.map.refresh();
-            this.checkCurrentTile();
+            this.walker.moveForward();
+        }
+
+    },
+
+    moveBackward: function () {
+
+        if (!this.checkKey()) { return; }
+
+        if (this.map.canPass(2))
+        {
+            this.walker.moveBackward();
+        }
+
+    },
+
+    stepLeft: function () {
+
+        if (!this.checkKey()) { return; }
+
+        if (this.map.canPass(1))
+        {
+            this.walker.moveLeft();
+        }
+
+    },
+
+    stepRight: function () {
+
+        if (!this.checkKey()) { return; }
+
+        if (this.map.canPass(3))
+        {
+            this.walker.moveRight();
         }
 
     },
@@ -60,7 +124,6 @@ TimesOfLores.Game.prototype = {
         if (!this.checkKey()) { return; }
 
         this.walker.turnLeft();
-        this.map.refresh();
 
     },
 
@@ -69,7 +132,6 @@ TimesOfLores.Game.prototype = {
         if (!this.checkKey()) { return; }
 
         this.walker.turnRight();
-        this.map.refresh();
 
     },
 
@@ -145,6 +207,16 @@ TimesOfLores.Game.prototype = {
     },
 
     update: function () {
+
+        //  If the player moves or turns we'll adjust the map automatically
+
+        if (!this._location.equals(this.walker.location) || this._facing !== this.walker.facing)
+        {
+            this.map.refresh();
+            this.checkCurrentTile();
+            this._location.copyFrom(this.walker.location);
+            this._facing = this.walker.facing;
+        }
 
     },
 
