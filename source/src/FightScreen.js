@@ -21,6 +21,9 @@ TimesOfLores.FightScreen = function (state) {
 
     this.hitTween = state.add.tween(this.hitMarker);
 
+    //  Let's add a coin emitter :)
+    
+
     this.isFighting = false;
     this.yourFightMove = false;
     this.visible = false;

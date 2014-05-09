@@ -44,6 +44,8 @@ TimesOfLores.Preloader.prototype = {
 
 		this.load.image('panel', 'images/panel.png');
 
+		this.load.image('coin', 'images/coin.png');
+
 	    this.load.tilemap('map', 'maps.json', null, Phaser.Tilemap.TILED_JSON);
 
 	},
