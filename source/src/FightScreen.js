@@ -39,10 +39,16 @@ TimesOfLores.FightScreen.prototype.display = function (health) {
     this.enemyHealth = health;
     this.enemyHealthFill.visible = true;
 
-    this.visible = true;
+    this.hitBar.y = -4;
+    this.hitMarker.x = 32;
+
+    this.state.add.tween(this.hitBar).to( { y: 28 }, 1000, Phaser.Easing.Sinusoidal.Out, true);
+    var tween = this.state.add.tween(this.hitMarker).to( { x: 4 }, 1000, Phaser.Easing.Sinusoidal.Out, true);
 
     //  Do you always start? maybe the enemy should sometimes. 50/50 roll maybe?
-    this.yourAttack();
+    tween.onComplete.add(this.yourAttack, this);
+
+    this.visible = true;
 
 };
 
@@ -53,6 +59,7 @@ TimesOfLores.FightScreen.prototype.yourAttack = function () {
     this.yourFightMove = true;
 
     this.hitMarker.x = 4;
+    this.hitImage.visible = false;
 
     this.hitTween = this.state.add.tween(this.hitMarker).to( { x: 25 }, 1000, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000, true);
 
@@ -78,11 +85,13 @@ TimesOfLores.FightScreen.prototype.hit = function () {
 
         if (x >= 11 && x <= 17)
         {
-            this.enemyHealth -= this.character.damage;
+            var dmg = this.game.rnd.integerInRange(this.character.damage, this.character.damage + 2);
 
-            this.hitFont.text = '-' + this.character.damage;
+            this.enemyHealth -= dmg;
 
-            console.log('BOOM!', this.character.damage, 'damage, enemy at', this.enemyHealth);
+            this.hitFont.text = '-' + dmg;
+
+            console.log('BOOM!', dmg, 'damage, enemy at', this.enemyHealth);
     
             if (this.enemyHealth > 0)
             {
@@ -92,21 +101,7 @@ TimesOfLores.FightScreen.prototype.hit = function () {
             }
             else
             {
-                console.log('enemy DEAD');
-
-                //  Dead!
-                this.enemyHealthFill.visible = false;
-
-                //  UI effect needed here
-                this.character.gold += this.game.rnd.integerInRange(1, 5);
-                this.walker.putTile(-1);
-                this.state.map.refresh();
-
-                //  Show death sequence, but until then ...
-                this.isFighting = false;
-                this.visible = false;
-
-                this.state.ui.show();
+                this.enemyDead();
             }
         }
         else
@@ -121,6 +116,46 @@ TimesOfLores.FightScreen.prototype.hit = function () {
             tween.start();
         }
     }
+
+};
+
+TimesOfLores.FightScreen.prototype.enemyDead = function () {
+
+    console.log('enemy DEAD');
+
+    //  Dead!
+    //  
+    //  Ok let's do something nicer here
+
+    this.enemyHealthFill.visible = false;
+
+    //  UI effect needed here
+    this.character.gold += this.game.rnd.integerInRange(1, 5);
+
+    this.walker.putTile(-1);
+    this.state.map.refresh();
+
+    this.hide();
+
+};
+
+TimesOfLores.FightScreen.prototype.hide = function () {
+
+    this.state.add.tween(this.hitBar).to( { y: -4 }, 1000, Phaser.Easing.Sinusoidal.Out, true);
+
+    var tween = this.state.add.tween(this.hitMarker).to( { x: 32 }, 1000, Phaser.Easing.Sinusoidal.Out, true);
+
+    tween.onComplete.add(this.hideOver, this);
+
+};
+
+TimesOfLores.FightScreen.prototype.hideOver = function () {
+
+    //  Show death sequence, but until then ...
+    this.isFighting = false;
+    this.visible = false;
+
+    this.state.ui.show();
 
 };
 
