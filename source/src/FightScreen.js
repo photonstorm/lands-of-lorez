@@ -21,13 +21,6 @@ TimesOfLores.FightScreen = function (state) {
 
     this.hitTween = state.add.tween(this.hitMarker);
 
-    this.emitter = state.add.emitter(8, 0, 50);
-    this.emitter.width = 20;
-    this.emitter.makeParticles('coin');
-    this.emitter.minParticleSpeed.set(0, 20);
-    this.emitter.maxParticleSpeed.set(0, 30);
-    this.emitter.setRotation(0, 0);
-
     this.isFighting = false;
     this.yourFightMove = false;
     this.visible = false;
@@ -142,12 +135,12 @@ TimesOfLores.FightScreen.prototype.enemyDead = function () {
 
     this.character.gold += payout;
 
+    this.state.ui.dropCoins(payout);
+
     this.walker.putTile(-1);
     this.state.map.refresh();
 
     console.log('payout', payout);
-
-    this.emitter.start(false, 2000, 250, payout);
 
     this.hide();
 

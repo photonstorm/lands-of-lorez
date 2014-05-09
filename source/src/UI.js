@@ -10,6 +10,15 @@ TimesOfLores.UI = function (state) {
     this.keyFx = this.create(0, 0, 'itemsPickUp', 1);
     this.potionFx = this.create(0, 0, 'itemsPickUp', 2);
 
+    this.emitter = state.make.emitter(8, 0, 50);
+    this.emitter.width = 20;
+    this.emitter.makeParticles('coin');
+    this.emitter.minParticleSpeed.set(0, 20);
+    this.emitter.maxParticleSpeed.set(0, 30);
+    this.emitter.setRotation(0, 0);
+
+    this.add(this.emitter);
+
     this.healthBG = this.create(1, 1, 'healthBG');
     this.healthFill = this.create(1, 1, 'health');
 
@@ -50,6 +59,16 @@ TimesOfLores.UI.prototype.update = function () {
     {
         this.healthFill.width = this.character.health;
     }
+
+    this.emitter.update();
+
+};
+
+TimesOfLores.UI.prototype.dropCoins = function (payout) {
+
+    this.emitter.visible = true;
+
+    this.emitter.start(false, 2000, 250, payout);
 
 };
 
