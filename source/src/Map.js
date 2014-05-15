@@ -145,12 +145,11 @@ TimesOfLores.Map.prototype.refresh = function () {
                     this.showWall(this.walls[y][x]);
                 }
             }
-            //  Pah, i might be 7, etc.
-            else if (i > 3 && i < 7)
+            //  tile ids, 1 = nothing, 2 = wall, 3 = locked door, 4 = key, 5 = potion,, 6 = empty, 7 = frog, 8 = duck, 9 = red, 10 = bat, 11 = snake, 12 = cat, 13 = start, 14 = exit
+            else if (i > 3)
             {
                 //  sprite sheet index
-                //  0 - lock, 1 = key, 2 = potion, 3 = frog, etc
-                //  tile ids, 3 = lock, 4 = key, 5 = potion, 6 = frog, etc
+                //  0 - lock, 1 = key, 2 = potion, 3 = exit, 4 = frog, 5 = duck, 6 = red, 7 = bat, 8 = snake, 9 = cat
 
                 if (x === 1 && y === 0)
                 {

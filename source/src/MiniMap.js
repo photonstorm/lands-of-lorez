@@ -7,7 +7,7 @@ TimesOfLores.MiniMap = function (state) {
 
     Phaser.Image.call(this, game, 0, 0, this.mapBMD);
 
-    this.mapColors = [ '#000000', '#6e6e6e', '#4e3d33', '#95a8be', '#fedd00', '#64b732', '#ff3d6a' ];
+    this.mapColors = [ '#000000', '#6e6e6e', '#4e3d33', '#95a8be', '#fedd00', '#64b732', '#ff3d6a', '#ff3d6a', '#ff3d6a', '#ff3d6a', '#ff3d6a', '#ff3d6a', '#ff3dff', '#6e6e6e', '#efefef' ];
     this.mapShadow = '#3e281b';
 
     this.game.world.add(this);
@@ -57,7 +57,7 @@ TimesOfLores.MiniMap.prototype.display = function () {
         {
             i = data.tiles[y][x];
 
-            if (i > 2 && i < 7)
+            if (i > 2 && i !== 13)
             {
                 this.mapBMD.rect(dx, dy, 2, 3, this.mapShadow);
                 this.mapBMD.rect(dx, dy, 2, 2, this.mapColors[i]);

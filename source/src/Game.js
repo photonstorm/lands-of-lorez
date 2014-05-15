@@ -191,17 +191,12 @@ TimesOfLores.Game.prototype = {
                     this.ui.pickUpPotion();
                 }
             }
-            // else if (tile.index === 8)
-            // {
-                //  Gold (needs UI fx) - not currently in the map, will swap for diamonds / treasure
-                // this.character.gold++;
-                // this.walker.putTile(-1);
-            // }
-            else if (tile.index === 6)
+            else if (tile.index >= 7 && tile.index <= 11)
             {
                 //  Baddie! (10 = baddie health, needs moving to enemy stats class)
                 this.fight.display(10);
             }
+            //  12 = cat, 13 = start, 14 = exit
         }
 
     },
