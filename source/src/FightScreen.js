@@ -14,6 +14,7 @@ TimesOfLores.FightScreen = function (state) {
     this.hitBar = this.create(4, 28, 'gauge');
     this.hitMarker = this.create(4, 26, 'attack');
 
+    this.hitAreas = [];
     this.hitFont = state.add.retroFont('digits', 4, 6, 'L0123456789-+');
     this.hitFont.text = '0';
     this.hitImage = this.create(1, 5, this.hitFont);
@@ -25,12 +26,45 @@ TimesOfLores.FightScreen = function (state) {
     this.yourFightMove = false;
     this.visible = false;
 
+    this.calculateHitAreas();
+
     return this;
 
 };
 
 TimesOfLores.FightScreen.prototype = Object.create(Phaser.Group.prototype);
 TimesOfLores.FightScreen.prototype.constructor = TimesOfLores.FightScreen;
+
+TimesOfLores.FightScreen.prototype.calculateHitAreas = function () {
+
+    var w = this.game.cache.getImage('gauge').width;
+    var h = this.game.cache.getImage('gauge').height;
+
+    var bmd = this.game.make.bitmapData(w, h);
+    bmd.draw('gauge');
+    bmd.update();
+
+    //  Right let's scan this sucker
+    for (var y = 0; y < h; y += 3)
+    {
+        var pixels = [];
+
+        for (var x = 1; x < (w-2); x++)
+        {
+            if (bmd.getPixel32(x, y) === 4285152767)
+            {
+                pixels.push(true);
+            }
+            else
+            {
+                pixels.push(false);
+            }
+        }
+
+        this.hitAreas.push(pixels);
+    }
+
+};
 
 TimesOfLores.FightScreen.prototype.display = function (enemyType) {
 
@@ -41,28 +75,31 @@ TimesOfLores.FightScreen.prototype.display = function (enemyType) {
     switch (enemyType)
     {
         case 7:
-            this.enemy = new TimesOfLores.Enemy.Frog(this.game);
+            this.enemy = new TimesOfLores.Enemy.Frog(this, enemyType);
             break;
 
         case 8:
-            this.enemy = new TimesOfLores.Enemy.Duck(this.game);
+            this.enemy = new TimesOfLores.Enemy.Duck(this, enemyType);
             break;
 
         case 9:
-            this.enemy = new TimesOfLores.Enemy.Plotop(this.game);
+            this.enemy = new TimesOfLores.Enemy.Plotop(this, enemyType);
             break;
 
         case 10:
-            this.enemy = new TimesOfLores.Enemy.Bat(this.game);
+            this.enemy = new TimesOfLores.Enemy.Bat(this, enemyType);
             break;
 
         case 11:
-            this.enemy = new TimesOfLores.Enemy.Snake(this.game);
+            this.enemy = new TimesOfLores.Enemy.Snake(this, enemyType);
             break;
     }
 
+    console.log(this.enemy.hitArea);
+
     this.enemyHealthFill.visible = true;
 
+    this.hitBar.frame = enemyType - 7;
     this.hitBar.y = -4;
     this.hitMarker.x = 32;
 
@@ -97,7 +134,7 @@ TimesOfLores.FightScreen.prototype.hit = function () {
 
     if (this.yourFightMove && this.hitTween.isRunning)
     {
-        var x = Math.floor(this.hitMarker.x);
+        var x = Math.round(this.hitMarker.x) - 4;
 
         console.log('You hit. Marker at', x);
 
@@ -107,7 +144,7 @@ TimesOfLores.FightScreen.prototype.hit = function () {
         this.hitImage.y = 7;
         this.hitImage.visible = true;
 
-        if (x >= 11 && x <= 17)
+        if (this.enemy.wasHit(x))
         {
             var dmg = this.game.rnd.integerInRange(this.character.damage, this.character.damage + 2);
 

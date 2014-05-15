@@ -1,6 +1,6 @@
-TimesOfLores.Enemy.Bat = function (game) {
+TimesOfLores.Enemy.Bat = function (fightScreen, id) {
 
-    TimesOfLores.Enemy.call(this, game);
+    TimesOfLores.Enemy.call(this, fightScreen, id);
 
     this.health = 10;
     this.damage = 1;

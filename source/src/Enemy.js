@@ -1,6 +1,8 @@
-TimesOfLores.Enemy = function (game) {
+TimesOfLores.Enemy = function (fightScreen, id) {
 
-    this.game = game;
+    this.game = fightScreen.game;
+    this.id = id;
+    this.hitArea = fightScreen.hitAreas[id - 7];
 
     this.health = 10;
     this.damage = 1;
@@ -12,6 +14,12 @@ TimesOfLores.Enemy = function (game) {
 };
 
 TimesOfLores.Enemy.prototype = {
+
+    wasHit: function (x) {
+
+        return this.hitArea[x];
+
+    }
 
     // setFullHealth: function () {
 

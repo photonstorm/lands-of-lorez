@@ -1,6 +1,6 @@
-TimesOfLores.Enemy.Duck = function (game) {
+TimesOfLores.Enemy.Duck = function (fightScreen, id) {
 
-    TimesOfLores.Enemy.call(this, game);
+    TimesOfLores.Enemy.call(this, fightScreen, id);
 
     this.health = 10;
     this.damage = 1;
