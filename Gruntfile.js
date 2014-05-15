@@ -16,6 +16,12 @@ module.exports = function (grunt) {
             'source/src/Boot.js',
             'source/src/Preloader.js',
             'source/src/Character.js',
+            'source/src/Enemy.js',
+            'source/src/enemies/Bat.js',
+            'source/src/enemies/Duck.js',
+            'source/src/enemies/Frog.js',
+            'source/src/enemies/Plotop.js',
+            'source/src/enemies/Snake.js',
             'source/src/Map.js',
             'source/src/MiniMap.js',
             'source/src/FightScreen.js',
@@ -39,7 +45,7 @@ module.exports = function (grunt) {
 
             timeoflores: {
                 options: {
-                    banner: '/* Time of Lores by Photon Storm */\n'
+                    banner: '/* Time of Lores by Photon Storm. Made with Phaser http://phaser.io */\n'
                 },
                 src: ['<%= concat.timeoflores.dest %>'],
                 dest: '<%= compile_dir %>/timeoflores.min.js'

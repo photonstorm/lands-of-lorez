@@ -30,6 +30,12 @@
     <script src="src/MiniMap.js"></script>
     <script src="src/FightScreen.js"></script>
     <script src="src/UI.js"></script>
+    <script src="src/Enemy.js"></script>
+    <script src="src/enemies/Bat.js"></script>
+    <script src="src/enemies/Duck.js"></script>
+    <script src="src/enemies/Frog.js"></script>
+    <script src="src/enemies/Plotop.js"></script>
+    <script src="src/enemies/Snake.js"></script>
     <script src="src/Game.js"></script>
 
     <?php
@@ -54,6 +60,24 @@
 
     <div id="actual-canvas"><canvas id="pixel" width="256" height="256" /></div>
     <div id="game"></div>
+
+    <?php
+        if (isset($_POST['map']))
+        {
+    ?>
+    <script type="text/javascript">
+    var mapJSON = <?php echo $_POST['map']; ?>;
+    </script>
+    <?php
+        }
+    ?>
+
+    <p>Paste the JSON Map data in here:</p>
+
+    <form action="index.php" method="post">
+    <textarea name="map" id="map" style="width: 800px; height: 300px"><?php echo $_POST['map']; ?></textarea><br />
+    <input type="submit" />
+    </form>
 
     <h2>Keyboard Controls</h2>
 

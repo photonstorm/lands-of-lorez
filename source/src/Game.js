@@ -24,10 +24,14 @@ TimesOfLores.Game.prototype = {
     create: function () {
 
         this.levelData = this.add.tilemap('map');
+
+        this.levelData.setLayer('Level 1');
+
         this.levelData.setCollisionByIndex(2);
 
-        //  1 x 14 = map start coordinates (move to per level var)
-        this.walker = new Phaser.Plugin.TilemapWalker(this.game, this.levelData, this.levelData.currentLayer, 1, 14);
+        var startTile = this.levelData.searchTileIndex(13);
+
+        this.walker = new Phaser.Plugin.TilemapWalker(this.game, this.levelData, this.levelData.currentLayer, startTile.x, startTile.y);
 
         this._location.copyFrom(this.walker.location);
         this._facing = this.walker.facing;
@@ -193,8 +197,7 @@ TimesOfLores.Game.prototype = {
             }
             else if (tile.index >= 7 && tile.index <= 11)
             {
-                //  Baddie! (10 = baddie health, needs moving to enemy stats class)
-                this.fight.display(10);
+                this.fight.display(tile.index);
             }
             //  12 = cat, 13 = start, 14 = exit
         }

@@ -7,7 +7,7 @@ TimesOfLores.FightScreen = function (state) {
     this.walker = state.walker;
     this.character = state.character;
 
-    this.enemyHealth = 10;
+    this.enemy = null;
     this.enemyHealthBG = this.create(21, 1, 'enemyBG');
     this.enemyHealthFill = this.create(21, 1, 'enemy');
 
@@ -32,11 +32,35 @@ TimesOfLores.FightScreen = function (state) {
 TimesOfLores.FightScreen.prototype = Object.create(Phaser.Group.prototype);
 TimesOfLores.FightScreen.prototype.constructor = TimesOfLores.FightScreen;
 
-TimesOfLores.FightScreen.prototype.display = function (health) {
+TimesOfLores.FightScreen.prototype.display = function (enemyType) {
 
     this.state.ui.hide();
 
-    this.enemyHealth = health;
+    console.log('FightScreen display', enemyType);
+
+    switch (enemyType)
+    {
+        case 7:
+            this.enemy = new TimesOfLores.Enemy.Frog(this.game);
+            break;
+
+        case 8:
+            this.enemy = new TimesOfLores.Enemy.Duck(this.game);
+            break;
+
+        case 9:
+            this.enemy = new TimesOfLores.Enemy.Plotop(this.game);
+            break;
+
+        case 10:
+            this.enemy = new TimesOfLores.Enemy.Bat(this.game);
+            break;
+
+        case 11:
+            this.enemy = new TimesOfLores.Enemy.Snake(this.game);
+            break;
+    }
+
     this.enemyHealthFill.visible = true;
 
     this.hitBar.y = -4;
@@ -89,13 +113,13 @@ TimesOfLores.FightScreen.prototype.hit = function () {
 
             dmg *= 2;
 
-            this.enemyHealth -= dmg;
+            this.enemy.health -= dmg;
 
             this.hitFont.text = '-' + dmg;
 
-            console.log('BOOM!', dmg, 'damage, enemy at', this.enemyHealth);
+            console.log('BOOM!', dmg, 'damage, enemy at', this.enemy.health);
     
-            if (this.enemyHealth > 0)
+            if (this.enemy.health > 0)
             {
                 var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
                 tween.onComplete.add(this.enemyAttacks, this);
@@ -131,7 +155,7 @@ TimesOfLores.FightScreen.prototype.enemyDead = function () {
 
     this.enemyHealthFill.visible = false;
 
-    var payout = this.game.rnd.integerInRange(2, 6);
+    var payout = this.enemy.kill();
 
     this.character.gold += payout;
 
@@ -176,7 +200,6 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
     this.hitImage.y = 7;
     this.hitImage.visible = true;
 
-    //  Should be set by the enemy class (strength, etc)
     var amt = this.game.rnd.integerInRange(0, 2);
 
     this.hitFont.text = '-' + amt;
@@ -209,9 +232,9 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
 
 TimesOfLores.FightScreen.prototype.update = function () {
 
-    if (this.enemyHealthFill.width !== this.enemyHealth)
+    if (this.enemy && this.enemyHealthFill.width !== this.enemy.health)
     {
-        this.enemyHealthFill.width = this.enemyHealth;
+        this.enemyHealthFill.width = this.enemy.health;
     }
 
 };

@@ -39,14 +39,22 @@ TimesOfLores.Preloader.prototype = {
 
 		this.load.image('enemyBG', 'images/enemy-bg.png');
 		this.load.image('enemy', 'images/enemy-fill.png');
-		this.load.image('gauge', 'images/enemy-gauge.png');
+		this.load.spritesheet('gauge', 'images/enemy-gauge.png', 24, 3);
 		this.load.image('attack', 'images/attack-bar.png');
 
 		this.load.image('panel', 'images/panel.png');
 
 		this.load.image('coin', 'images/coin.png');
 
-	    this.load.tilemap('map', 'maps.json', null, Phaser.Tilemap.TILED_JSON);
+		if (window['mapJSON'])
+		{
+			console.log('map data loaded from page');
+		    this.load.tilemap('map', null, mapJSON, Phaser.Tilemap.TILED_JSON);
+		}
+		else
+		{
+		    this.load.tilemap('map', 'maps.json', null, Phaser.Tilemap.TILED_JSON);
+		}
 
 	},
 

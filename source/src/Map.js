@@ -108,6 +108,13 @@ TimesOfLores.Map.prototype.canPass = function (direction) {
 
 };
 
+TimesOfLores.Map.prototype.getStart = function () {
+
+    var data = this.walker.getMiniMap(16, 16); // reference missing
+
+
+};
+
 TimesOfLores.Map.prototype.refresh = function () {
 
     this.setAll('visible', false);
