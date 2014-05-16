@@ -179,7 +179,7 @@ TimesOfLores.Game.prototype = {
 
         if (tile)
         {
-            if (tile.index === 3)
+            if (tile.index === 3 || tile.index === 6)
             {
                 //  Was locked, but now walked through it
                 this.walker.putTile(-1);

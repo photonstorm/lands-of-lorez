@@ -85,6 +85,12 @@ TimesOfLores.Preloader.prototype = {
 
 	},
 
+	loadRender: function () {
+
+		TimesOfLores.pixelContext.drawImage(game.canvas, 0, 0, 32, 32, 0, 0, TimesOfLores.width, TimesOfLores.height);
+
+	},
+
 	render: function () {
 
 		TimesOfLores.pixelContext.drawImage(game.canvas, 0, 0, 32, 32, 0, 0, TimesOfLores.width, TimesOfLores.height);

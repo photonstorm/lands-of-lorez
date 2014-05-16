@@ -36,9 +36,9 @@ TimesOfLores.CharacterSelect.prototype = {
 
         if (this.tween && this.tween.isRunning) { return; }
 
-        this.add.tween(this.char1).to( { x: "-32" }, 1000, Phaser.Easing.Linear.None, true);
-        this.add.tween(this.char2).to( { x: "-32" }, 1000, Phaser.Easing.Linear.None, true);
-        this.tween = this.add.tween(this.char3).to( { x: "-32" }, 1000, Phaser.Easing.Linear.None, true);
+        this.add.tween(this.char1).to( { x: "-32" }, 500, Phaser.Easing.Linear.None, true);
+        this.add.tween(this.char2).to( { x: "-32" }, 500, Phaser.Easing.Linear.None, true);
+        this.tween = this.add.tween(this.char3).to( { x: "-32" }, 500, Phaser.Easing.Linear.None, true);
 
         this.tween.onComplete.add(this.reOrder, this);
 
@@ -48,9 +48,9 @@ TimesOfLores.CharacterSelect.prototype = {
 
         if (this.tween && this.tween.isRunning) { return; }
 
-        this.add.tween(this.char1).to( { x: "+32" }, 1000, Phaser.Easing.Linear.None, true);
-        this.add.tween(this.char2).to( { x: "+32" }, 1000, Phaser.Easing.Linear.None, true);
-        this.tween = this.add.tween(this.char3).to( { x: "+32" }, 1000, Phaser.Easing.Linear.None, true);
+        this.add.tween(this.char1).to( { x: "+32" }, 500, Phaser.Easing.Linear.None, true);
+        this.add.tween(this.char2).to( { x: "+32" }, 500, Phaser.Easing.Linear.None, true);
+        this.tween = this.add.tween(this.char3).to( { x: "+32" }, 500, Phaser.Easing.Linear.None, true);
 
         this.tween.onComplete.add(this.reOrder, this);
 

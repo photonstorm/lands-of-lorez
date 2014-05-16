@@ -14,6 +14,8 @@ TimesOfLores.Map = function (state) {
     this.wall2 = this.create(0, 0, 'wall2');
     this.wall3 = this.create(0, 0, 'wall3');
 
+    this.itemsFarLeft = this.create(-16, 0, 'itemsFar', 0);
+    this.itemsFarRight = this.create(16, 0, 'itemsFar', 0);
     this.itemsFar = this.create(0, 0, 'itemsFar', 0);
 
     //  mid
@@ -21,12 +23,16 @@ TimesOfLores.Map = function (state) {
     this.wall5 = this.create(0, 0, 'wall5');
     this.wall6 = this.create(0, 0, 'wall6');
 
+    this.itemsMidLeft = this.create(-18, 0, 'itemsMid', 0);
+    this.itemsMidRight = this.create(18, 0, 'itemsMid', 0);
     this.itemsMid = this.create(0, 0, 'itemsMid', 0);
 
     //  near
     this.wall7 = this.create(0, 0, 'wall7');
     this.wall8 = this.create(0, 0, 'wall8');
 
+    this.itemsNearLeft = this.create(-16, 0, 'itemsNear', 0);
+    this.itemsNearRight = this.create(16, 0, 'itemsNear', 0);
     this.itemsNear = this.create(0, 0, 'itemsNear', 0);
 
     //  Map
@@ -139,9 +145,9 @@ TimesOfLores.Map.prototype.refresh = function () {
             {
                 this.showWall(this.walls[y][x]);
             }
-            else if (i === 3)
+            else if (i === 3 || i === 6)
             {
-                //  Locked wall door thingy (finally)
+                //  Locked wall door thingy
                 if (x === 1 && y === 0)
                 {
                     this.itemsFar.visible = true;
@@ -158,11 +164,29 @@ TimesOfLores.Map.prototype.refresh = function () {
                 }
             }
             //  tile ids, 1 = nothing, 2 = wall, 3 = locked door, 4 = key, 5 = potion,, 6 = empty, 7 = frog, 8 = duck, 9 = red, 10 = bat, 11 = snake, 12 = cat, 13 = start, 14 = exit
-            else if (i > 3)
+            else if (i > 3 && i !== 6)
             {
                 //  sprite sheet index
                 //  0 - lock, 1 = key, 2 = potion, 3 = exit, 4 = frog, 5 = duck, 6 = red, 7 = bat, 8 = snake, 9 = cat
 
+                //  LEFT
+                if (x === 0 && y === 0)
+                {
+                    this.itemsFarLeft.visible = true;
+                    this.itemsFarLeft.frame = i - 3;
+                }
+                else if (x === 0 && y === 1)
+                {
+                    this.itemsMidLeft.visible = true;
+                    this.itemsMidLeft.frame = i - 3;
+                }
+                else if (x === 0 && y === 2)
+                {
+                    // this.itemsNearLeft.visible = true;
+                    // this.itemsNearLeft.frame = i - 3;
+                }
+
+                //  MID
                 if (x === 1 && y === 0)
                 {
                     this.itemsFar.visible = true;
@@ -177,6 +201,23 @@ TimesOfLores.Map.prototype.refresh = function () {
                 {
                     this.itemsNear.visible = true;
                     this.itemsNear.frame = i - 3;
+                }
+
+                //  RIGHT
+                if (x === 2 && y === 0)
+                {
+                    this.itemsFarRight.visible = true;
+                    this.itemsFarRight.frame = i - 3;
+                }
+                else if (x === 2 && y === 1)
+                {
+                    this.itemsMidRight.visible = true;
+                    this.itemsMidRight.frame = i - 3;
+                }
+                else if (x === 2 && y === 2)
+                {
+                    // this.itemsNearRight.visible = true;
+                    // this.itemsNearRight.frame = i - 3;
                 }
             }
         }
