@@ -103,6 +103,10 @@ TimesOfLores.FightScreen.prototype.display = function (enemyType) {
     this.hitBar.y = -4;
     this.hitMarker.x = 32;
 
+    this.hitImage.x = 1;
+    this.hitImage.y = 5;
+    this.hitImage.visible = false;
+
     this.state.add.tween(this.hitBar).to( { y: 28 }, 1000, Phaser.Easing.Sinusoidal.Out, true);
     var tween = this.state.add.tween(this.hitMarker).to( { x: 4 }, 1000, Phaser.Easing.Sinusoidal.Out, true);
 
@@ -212,7 +216,7 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
 
     console.log('Enemy rolls', amt, 'vs. your armorClass of', this.character.armorClass);
 
-    if (amt >= this.character.armorClass)
+    if (amt >= this.character.armorClass && !TimesOfLores.cheatInvin)
     {
         //  Enemy hit you
         var dmg = this.enemy.damage;

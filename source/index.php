@@ -58,22 +58,36 @@
 </head>
 <body>
 
-    <h2>Times of Lores - #lowrez game jam entry</h2>
+    <h2>Times of Lores - #lowrez game jam entry (<a href="index.php">reload</a>)</h2>
 
     <div id="actual-canvas"><canvas id="pixel" width="256" height="256" /></div>
     <div id="game"></div>
 
     <?php
         $level = '1';
+        $invin = 'n';
+        $keys = 'n';
 
         if (isset($_POST['level']))
         {
             $level = $_POST['level'];
         }
+
+        if (isset($_POST['invin']))
+        {
+            $invin = $_POST['invin'];
+        }
+
+        if (isset($_POST['keys']))
+        {
+            $keys = $_POST['keys'];
+        }
     ?>
 
     <script type="text/javascript">
     var mapLevel = <?php echo $level; ?>;
+    var mapInvin = '<?php echo $invin; ?>';
+    var mapKeys = '<?php echo $keys; ?>';
     <?php
         $map = '';
 
@@ -92,6 +106,38 @@
     <form action="index.php" method="post">
     <textarea name="map" id="map" style="width: 800px; height: 300px"><?php echo $map ?></textarea><br />
     Level: <input type="text" name="level" id="level" value="<?php echo $level ?>" /><br />
+
+    <?php
+        if ($invin === 'y')
+        {
+    ?>
+    Invincible?: Yes <input type="radio" name="invin" value="y" checked="checked" /> No <input type="radio" name="invin" value="n" /><br />
+    <?php
+        }
+        else
+        {
+    ?>
+    Invincible?: Yes <input type="radio" name="invin" value="y" /> No <input type="radio" name="invin" value="n" checked="checked" /><br />
+    <?php
+        }
+    ?>
+
+    <?php
+        if ($keys === 'y')
+        {
+    ?>
+    Endless Keys?: Yes <input type="radio" name="keys" value="y" checked="checked" /> No <input type="radio" name="keys" value="n" /><br />
+    <?php
+        }
+        else
+        {
+    ?>
+    Endless Keys?: Yes <input type="radio" name="keys" value="y" /> No <input type="radio" name="keys" value="n" checked="checked" /><br />
+    <?php
+        }
+    ?>
+
+
     <input type="submit" />
     </form>
 

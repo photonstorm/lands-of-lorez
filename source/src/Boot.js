@@ -5,6 +5,8 @@ TimesOfLores = {
 
     level: 1,
     character: null,
+    cheatInvin: false,
+    cheatKeys: false,
 
     width: 256,
     height: 256,
@@ -46,6 +48,18 @@ TimesOfLores.Boot.prototype = {
         {
             TimesOfLores.level = window['mapLevel'];
             console.log('Level set to', TimesOfLores.level);
+        }
+
+        if (window['mapInvin'] === 'y')
+        {
+            TimesOfLores.cheatInvin = true;
+            console.log('Cheat Mode: Invincible');
+        }
+
+        if (window['mapKeys'] === 'y')
+        {
+            TimesOfLores.cheatKeys = true;
+            console.log('Cheat Mode: Lock Picker');
         }
 
         this.state.start('Preloader');

@@ -24,6 +24,9 @@ TimesOfLores.MiniMap.prototype.display = function () {
     this.mapBMD.fill(110, 110, 110, 1);
 
     var data = this.walker.getMiniMap(16, 16); // reference missing
+
+console.log(data);
+
     var i = 0;
     var dx = 0;
     var dy = 0;

@@ -91,9 +91,15 @@ TimesOfLores.Map.prototype.canPass = function (direction) {
 
     if (index === 3)
     {
-        if (this.character.keys > 0)
+        if (this.character.keys > 0 || TimesOfLores.cheatKeys)
         {
             this.character.keys--;
+
+            if (this.character.keys < 0)
+            {
+                this.character.keys = 0;
+            }
+
             return true;
         }
     }
@@ -110,8 +116,7 @@ TimesOfLores.Map.prototype.canPass = function (direction) {
 
 TimesOfLores.Map.prototype.getStart = function () {
 
-    var data = this.walker.getMiniMap(16, 16); // reference missing
-
+    var data = this.walker.getMiniMap(16, 16); // reference missing?
 
 };
 
