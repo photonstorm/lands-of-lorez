@@ -2,16 +2,17 @@ TimesOfLores.Enemy.Frog = function (fightScreen, id) {
 
     this.name = 'Frog';
 
-    this.initiative = 6;
-    this.hitPoints = 12;
+    this.initiative = 0;
+    this.hitPoints = 15;
+    this.attackBonus = 5; // added to 1d20 it attacks
+    this.damageRoll = 5;
+    this.damageModifier = 0;
+
+    this.minGold = 1;
+    this.maxGold = 1;
+
     this.armorClass = 12;
-    this.attackBonus = 4; // added to 1d20 it attacks
-    this.damageRoll = 6;
-    this.damageModifier = 4;
-
-    this.minGold = 2;
-    this.maxGold = 6;
-
+	
     TimesOfLores.Enemy.call(this, fightScreen, id);
 
 };

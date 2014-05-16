@@ -2,16 +2,17 @@ TimesOfLores.Enemy.Bat = function (fightScreen, id) {
 
     this.name = 'Bat';
 
-    this.initiative = 5;
-    this.hitPoints = 21;
-    this.armorClass = 22;
-    this.attackBonus = 6; // added to 1d20 it attacks
-    this.damageRoll = 8;
-    this.damageModifier = 3;
+    this.initiative = 10;
+    this.hitPoints = 10;
+    this.attackBonus = 10; // added to 1d20 it attacks
+    this.damageRoll = 3;
+    this.damageModifier = 0;
 
     this.minGold = 2;
-    this.maxGold = 6;
+    this.maxGold = 2;
 
+    this.armorClass = 22;
+	
     TimesOfLores.Enemy.call(this, fightScreen, id);
 
 };

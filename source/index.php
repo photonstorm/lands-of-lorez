@@ -25,6 +25,7 @@
     <script src="../../phaser-plugins/TilemapWalker/TilemapWalker.js"></script>
     <script src="src/Boot.js"></script>
     <script src="src/Preloader.js"></script>
+    <script src="src/CharacterSelect.js"></script>
     <script src="src/Character.js"></script>
     <script src="src/Map.js"></script>
     <script src="src/MiniMap.js"></script>
@@ -37,6 +38,7 @@
     <script src="src/enemies/Plotop.js"></script>
     <script src="src/enemies/Snake.js"></script>
     <script src="src/Game.js"></script>
+    <script src="src/WellDone.js"></script>
 
     <?php
         }
@@ -62,20 +64,34 @@
     <div id="game"></div>
 
     <?php
-        if (isset($_POST['map']))
+        $level = '1';
+
+        if (isset($_POST['level']))
         {
+            $level = $_POST['level'];
+        }
     ?>
+
     <script type="text/javascript">
-    var mapJSON = <?php echo $_POST['map']; ?>;
-    </script>
+    var mapLevel = <?php echo $level; ?>;
+    <?php
+        $map = '';
+
+        if (isset($_POST['map']) && $_POST['map'] !== '')
+        {
+            $map = $_POST['map'];
+    ?>
+    var mapJSON = <?php echo $map ?>;
     <?php
         }
     ?>
+    </script>
 
     <p>Paste the JSON Map data in here:</p>
 
     <form action="index.php" method="post">
-    <textarea name="map" id="map" style="width: 800px; height: 300px"><?php echo $_POST['map']; ?></textarea><br />
+    <textarea name="map" id="map" style="width: 800px; height: 300px"><?php echo $map ?></textarea><br />
+    Level: <input type="text" name="level" id="level" value="<?php echo $level ?>" /><br />
     <input type="submit" />
     </form>
 

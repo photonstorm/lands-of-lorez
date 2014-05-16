@@ -45,6 +45,12 @@ TimesOfLores.Preloader.prototype = {
 		this.load.image('panel', 'images/panel.png');
 
 		this.load.image('coin', 'images/coin.png');
+		
+		this.load.image('characterSelect1', 'images/temp-character-select.png');
+		this.load.image('characterSelect2', 'images/temp-character-select2.png');
+		this.load.image('characterSelect3', 'images/temp-character-select3.png');
+
+		this.load.image('wellDone', 'images/well-done.png');
 
 		if (window['mapJSON'])
 		{
@@ -53,6 +59,7 @@ TimesOfLores.Preloader.prototype = {
 		}
 		else
 		{
+			console.log('map data loaded from file');
 		    this.load.tilemap('map', 'maps.json', null, Phaser.Tilemap.TILED_JSON);
 		}
 
@@ -62,8 +69,9 @@ TimesOfLores.Preloader.prototype = {
 
 		this.preloadBar.cropEnabled = false;
 
-		// this.state.start('MainMenu');
-		this.state.start('Game');
+        console.log('Preloader create');
+
+		this.state.start('CharacterSelect');
 
 	},
 

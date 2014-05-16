@@ -25,7 +25,7 @@ TimesOfLores.Game.prototype = {
 
         this.levelData = this.add.tilemap('map');
 
-        this.levelData.setLayer('Level 1');
+        this.levelData.setLayer('Level ' + TimesOfLores.level);
 
         this.levelData.setCollisionByIndex(2);
 
@@ -36,7 +36,7 @@ TimesOfLores.Game.prototype = {
         this._location.copyFrom(this.walker.location);
         this._facing = this.walker.facing;
 
-        this.character = new TimesOfLores.Character(this, 10, 3, 6);
+        this.character = TimesOfLores.character;
         this.map = new TimesOfLores.Map(this);
         this.ui = new TimesOfLores.UI(this);
         this.minimap = new TimesOfLores.MiniMap(this);
@@ -200,6 +200,10 @@ TimesOfLores.Game.prototype = {
                 this.fight.display(tile.index);
             }
             //  12 = cat, 13 = start, 14 = exit
+            else if (tile.index === 14)
+            {
+                this.state.start('WellDone');
+            }
         }
 
     },

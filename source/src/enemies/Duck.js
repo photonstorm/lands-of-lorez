@@ -2,16 +2,17 @@ TimesOfLores.Enemy.Duck = function (fightScreen, id) {
 
     this.name = 'Duck';
 
-    this.initiative = 2;
-    this.hitPoints = 37;
-    this.armorClass = 14;
-    this.attackBonus = 3; // added to 1d20 it attacks
-    this.damageRoll = 6;
-    this.damageModifier = 1;
+    this.initiative = 5;
+    this.hitPoints = 20;
+    this.attackBonus = 5; // added to 1d20 it attacks
+    this.damageRoll = 5;
+    this.damageModifier = 2;
 
-    this.minGold = 2;
-    this.maxGold = 6;
+    this.minGold = 3;
+    this.maxGold = 3;
 
+    this.armorClass = 15;
+	
     TimesOfLores.Enemy.call(this, fightScreen, id);
 
 }

@@ -3,6 +3,9 @@ TimesOfLores = {
     score: 0,
     music: null,
 
+    level: 1,
+    character: null,
+
     width: 256,
     height: 256,
 
@@ -39,6 +42,12 @@ TimesOfLores.Boot.prototype = {
 
         this.physics.startSystem(Phaser.Physics.ARCADE);
 
+        if (window['mapLevel'])
+        {
+            TimesOfLores.level = window['mapLevel'];
+            console.log('Level set to', TimesOfLores.level);
+        }
+
         this.state.start('Preloader');
 
     }
@@ -53,8 +62,9 @@ window.onload = function () {
 
     game.state.add('Boot', TimesOfLores.Boot);
     game.state.add('Preloader', TimesOfLores.Preloader);
+    game.state.add('CharacterSelect', TimesOfLores.CharacterSelect);
     game.state.add('Game', TimesOfLores.Game);
-    // game.state.add('MainMenu', TimesOfLores.MainMenu);
+    game.state.add('WellDone', TimesOfLores.WellDone);
 
     game.state.start('Boot');
 

@@ -2,16 +2,17 @@ TimesOfLores.Enemy.Plotop = function (fightScreen, id) {
 
     this.name = 'Plotop';
 
-    this.initiative = 6;
-    this.hitPoints = 42;
-    this.armorClass = 16;
-    this.attackBonus = 7; // added to 1d20 it attacks
-    this.damageRoll = 6;
-    this.damageModifier = 2;
+    this.initiative = 5;
+    this.hitPoints = 18;
+    this.attackBonus = 6; // added to 1d20 it attacks
+    this.damageRoll = 5;
+    this.damageModifier = 1;
 
     this.minGold = 2;
     this.maxGold = 6;
 
+    this.armorClass = 16;
+	
     TimesOfLores.Enemy.call(this, fightScreen, id);
 
 };

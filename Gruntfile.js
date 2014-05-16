@@ -16,6 +16,7 @@ module.exports = function (grunt) {
             'source/src/Boot.js',
             'source/src/Preloader.js',
             'source/src/Character.js',
+            'source/src/CharacterSelect.js',
             'source/src/Enemy.js',
             'source/src/enemies/Bat.js',
             'source/src/enemies/Duck.js',
@@ -26,7 +27,8 @@ module.exports = function (grunt) {
             'source/src/MiniMap.js',
             'source/src/FightScreen.js',
             'source/src/UI.js',
-            'source/src/Game.js'
+            'source/src/Game.js',
+            'source/src/WellDone.js'
 
         ],
 
