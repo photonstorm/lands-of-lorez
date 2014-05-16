@@ -136,7 +136,7 @@ TimesOfLores.FightScreen.prototype.yourAttack = function () {
     this.hitMarker.x = 4;
     this.hitImage.visible = false;
 
-    this.hitTween = this.state.add.tween(this.hitMarker).to( { x: 25 }, 1000, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000, true);
+    this.hitTween = this.state.add.tween(this.hitMarker).to( { x: 25 }, 600, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000, true);
 
     //  bloody hard!
     // this.hitTween = this.state.add.tween(this.hitMarker).to( { x: 25 }, 1000, Phaser.Easing.Circular.InOut, true, 0, 1000, true);
