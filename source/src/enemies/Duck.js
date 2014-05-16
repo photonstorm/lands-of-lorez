@@ -1,13 +1,18 @@
 TimesOfLores.Enemy.Duck = function (fightScreen, id) {
 
-    TimesOfLores.Enemy.call(this, fightScreen, id);
+    this.name = 'Duck';
 
-    this.health = 10;
-    this.damage = 1;
-    this.armor = 1;
+    this.initiative = 2;
+    this.hitPoints = 37;
+    this.armorClass = 14;
+    this.attackBonus = 2; // added to 1d20 it attacks
+    this.damageRoll = 6;
+    this.damageModifier = 1;
 
     this.minGold = 2;
     this.maxGold = 6;
+
+    TimesOfLores.Enemy.call(this, fightScreen, id);
 
 }
 
@@ -16,7 +21,7 @@ TimesOfLores.Enemy.Duck.prototype.constructor = TimesOfLores.Enemy.Duck;
 
 TimesOfLores.Enemy.Duck.prototype.kill = function () {
 
-    console.log('A Duck died');
+    console.log(this.name, 'died!');
 
     return this.game.rnd.integerInRange(this.minGold, this.maxGold);
 

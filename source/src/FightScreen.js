@@ -106,8 +106,22 @@ TimesOfLores.FightScreen.prototype.display = function (enemyType) {
     this.state.add.tween(this.hitBar).to( { y: 28 }, 1000, Phaser.Easing.Sinusoidal.Out, true);
     var tween = this.state.add.tween(this.hitMarker).to( { x: 4 }, 1000, Phaser.Easing.Sinusoidal.Out, true);
 
-    //  Do you always start? maybe the enemy should sometimes. 50/50 roll maybe?
-    tween.onComplete.add(this.yourAttack, this);
+    //  Initiative check
+    var you = this.d20 + this.character.initiative;
+    var them = this.d20 + this.enemy.initiative;
+
+    console.log('You are fighting a', this.enemy.name, 'with hitpoints:', this.enemy.hitPoints, 'and', this.enemy.health, 'health');
+
+    console.log('Initiative check. You:', you, 'Them:', them);
+
+    if (you >= them)
+    {
+        tween.onComplete.add(this.yourAttack, this);
+    }
+    else
+    {
+        tween.onComplete.add(this.enemyAttacks, this);
+    }
 
     this.visible = true;
 
@@ -115,7 +129,7 @@ TimesOfLores.FightScreen.prototype.display = function (enemyType) {
 
 TimesOfLores.FightScreen.prototype.yourAttack = function () {
 
-    console.log('yourAttack');
+    console.log('You Attack');
 
     this.yourFightMove = true;
 
@@ -136,7 +150,7 @@ TimesOfLores.FightScreen.prototype.hit = function () {
     {
         var x = Math.round(this.hitMarker.x) - 4;
 
-        console.log('You hit. Marker at', x);
+        console.log('Marker at', x);
 
         this.hitTween.stop();
 
@@ -146,15 +160,15 @@ TimesOfLores.FightScreen.prototype.hit = function () {
 
         if (this.enemy.wasHit(x))
         {
-            var dmg = this.game.rnd.integerInRange(this.character.damage, this.character.damage + 2);
+            var dmg = this.character.damage;
 
-            dmg *= 2;
+            console.log('You hit the Enemy for', dmg, 'damage.');
 
-            this.enemy.health -= dmg;
+            this.enemy.hitPoints -= dmg;
 
             this.hitFont.text = '-' + dmg;
 
-            console.log('BOOM!', dmg, 'damage, enemy at', this.enemy.health);
+            console.log('Enemy hitPoints:', this.enemy.hitPoints, ' Health:', this.enemy.health);
     
             if (this.enemy.health > 0)
             {
@@ -181,6 +195,62 @@ TimesOfLores.FightScreen.prototype.hit = function () {
     }
 
 };
+
+TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
+
+    console.log('Enemy Attacks');
+
+    this.yourFightMove = false;
+
+    this.hitImage.x = 1;
+    this.hitImage.y = 7;
+    this.hitImage.visible = true;
+
+    //  Enemy attacks ...
+
+    var amt = this.d20 + this.enemy.attackBonus;
+
+    console.log('Enemy rolls', amt, 'vs. your armorClass of', this.character.armorClass);
+
+    if (amt >= this.character.armorClass)
+    {
+        //  Enemy hit you
+        var dmg = this.enemy.damage;
+    
+        console.log('Enemy hit you for', dmg, 'damage');
+
+        this.hitFont.text = '-' + dmg;
+
+        var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
+
+        this.character.hitPoints -= dmg;
+
+        console.log('Your hitPoints:', this.character.hitPoints, ' Health:', this.character.health);
+
+        if (this.character.health > 0)
+        {
+            tween.onComplete.add(this.yourAttack, this);
+            tween.start();
+        }
+        else
+        {
+            console.log('YOU ARE DEAD!');
+        }
+    }
+    else
+    {
+        console.log('Enemy missed');
+
+        this.hitFont.text = '-0';
+
+        var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
+
+        tween.onComplete.add(this.yourAttack, this);
+        tween.start();
+    }
+
+};
+
 
 TimesOfLores.FightScreen.prototype.enemyDead = function () {
 
@@ -227,46 +297,6 @@ TimesOfLores.FightScreen.prototype.hideOver = function () {
 
 };
 
-TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
-
-    console.log('enemyAttacks');
-
-    this.yourFightMove = false;
-
-    this.hitImage.x = 1;
-    this.hitImage.y = 7;
-    this.hitImage.visible = true;
-
-    var amt = this.game.rnd.integerInRange(0, 2);
-
-    this.hitFont.text = '-' + amt;
-
-    var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
-
-    if (amt > 0)
-    {
-        this.character.health -= amt;
-
-        console.log('enemy hit you for', amt, 'health', this.character.health);
-
-        if (this.character.health > 0)
-        {
-            tween.onComplete.add(this.yourAttack, this);
-            tween.start();
-        }
-        else
-        {
-            console.log('YOU ARE DEAD!');
-        }
-    }
-    else
-    {
-        tween.onComplete.add(this.yourAttack, this);
-        tween.start();
-    }
-
-};
-
 TimesOfLores.FightScreen.prototype.update = function () {
 
     if (this.enemy && this.enemyHealthFill.width !== this.enemy.health)
@@ -275,3 +305,13 @@ TimesOfLores.FightScreen.prototype.update = function () {
     }
 
 };
+
+Object.defineProperty(TimesOfLores.FightScreen.prototype, "d20", {
+
+    get: function () {
+
+        return this.game.rnd.integerInRange(1, 20);
+
+    }
+
+});
