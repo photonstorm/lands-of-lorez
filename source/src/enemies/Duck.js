@@ -5,7 +5,7 @@ TimesOfLores.Enemy.Duck = function (fightScreen, id) {
     this.initiative = 2;
     this.hitPoints = 37;
     this.armorClass = 14;
-    this.attackBonus = 2; // added to 1d20 it attacks
+    this.attackBonus = 3; // added to 1d20 it attacks
     this.damageRoll = 6;
     this.damageModifier = 1;
 

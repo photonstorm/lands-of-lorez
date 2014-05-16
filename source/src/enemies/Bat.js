@@ -1,13 +1,18 @@
 TimesOfLores.Enemy.Bat = function (fightScreen, id) {
 
-    TimesOfLores.Enemy.call(this, fightScreen, id);
+    this.name = 'Bat';
 
-    this.health = 10;
-    this.damage = 1;
-    this.armor = 1;
+    this.initiative = 5;
+    this.hitPoints = 21;
+    this.armorClass = 22;
+    this.attackBonus = 6; // added to 1d20 it attacks
+    this.damageRoll = 8;
+    this.damageModifier = 3;
 
     this.minGold = 2;
     this.maxGold = 6;
+
+    TimesOfLores.Enemy.call(this, fightScreen, id);
 
 };
 
@@ -16,7 +21,7 @@ TimesOfLores.Enemy.Bat.prototype.constructor = TimesOfLores.Enemy.Bat;
 
 TimesOfLores.Enemy.Bat.prototype.kill = function () {
 
-    console.log('A Bat died');
+    console.log(this.name, 'died!');
 
     return this.game.rnd.integerInRange(this.minGold, this.maxGold);
 

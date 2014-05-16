@@ -1,14 +1,14 @@
-TimesOfLores.Character = function (state, hitPoints, damage, armorClass, attackBonus) {
+TimesOfLores.Character = function (state) {
 
     //  Will be populated from Character Selection screen
 
     this.game = state.game;
     this.walker = state.walker;
 
-    this.baseHitPoints = hitPoints;
+    this.baseHitPoints = 20;
 
     this.initiative = 6;
-    this.hitPoints = 12;
+    this.hitPoints = 20;
     this.armorClass = 17;
     this.attackBonus = 4;
     this.damageRoll = 8;
@@ -26,7 +26,7 @@ TimesOfLores.Character.prototype = {
 
     setFullHealth: function () {
 
-        this.health = this.baseHitPoints;
+        this.hitPoints = this.baseHitPoints;
 
     }
 

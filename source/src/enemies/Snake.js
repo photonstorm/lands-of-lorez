@@ -1,13 +1,18 @@
 TimesOfLores.Enemy.Snake = function (fightScreen, id) {
 
-    TimesOfLores.Enemy.call(this, fightScreen, id);
+    this.name = 'Snake';
 
-    this.health = 10;
-    this.damage = 1;
-    this.armor = 1;
+    this.initiative = 5;
+    this.hitPoints = 17;
+    this.armorClass = 21;
+    this.attackBonus = 7; // added to 1d20 it attacks
+    this.damageRoll = 8;
+    this.damageModifier = 3;
 
     this.minGold = 2;
     this.maxGold = 6;
+
+    TimesOfLores.Enemy.call(this, fightScreen, id);
 
 };
 
