@@ -46,11 +46,19 @@ TimesOfLores.Preloader.prototype = {
 
 		this.load.image('coin', 'images/coin.png');
 		
-		this.load.image('characterSelect1', 'images/temp-character-select.png');
-		this.load.image('characterSelect2', 'images/temp-character-select2.png');
-		this.load.image('characterSelect3', 'images/temp-character-select3.png');
+		this.load.image('characterSelect1', 'images/character1.png');
+		this.load.image('characterSelect2', 'images/character2.png');
+		this.load.image('characterSelect3', 'images/character3.png');
+		this.load.image('characterSelectLeft', 'images/select-left.png');
+		this.load.image('characterSelectRight', 'images/select-right.png');
+
+		this.load.image('title', 'images/title.png');
+		this.load.image('titlePlay', 'images/menu-play.png');
+		this.load.image('titleHelp', 'images/menu-help.png');
+		this.load.image('titleCredits', 'images/menu-credits.png');
 
 		this.load.image('wellDone', 'images/well-done.png');
+		this.load.image('gameOver', 'images/gameover.png');
 
 		if (window['mapJSON'])
 		{
@@ -69,9 +77,7 @@ TimesOfLores.Preloader.prototype = {
 
 		this.preloadBar.cropEnabled = false;
 
-        console.log('Preloader create');
-
-		this.state.start('CharacterSelect');
+		this.state.start('MainMenu');
 
 	},
 

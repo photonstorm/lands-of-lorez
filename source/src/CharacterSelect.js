@@ -6,6 +6,9 @@ TimesOfLores.CharacterSelect = function (game) {
     this.char2;
     this.char3;
 
+    this.prev;
+    this.next;
+
     this.current = 1;
     this.tween = null;
 
@@ -19,71 +22,47 @@ TimesOfLores.CharacterSelect.prototype = {
 
         this.char1 = this.add.image(0, 0, 'characterSelect1');
         this.char2 = this.add.image(32, 0, 'characterSelect2');
-        this.char3 = this.add.image(-32, 0, 'characterSelect3');
+        this.char3 = this.add.image(64, 0, 'characterSelect3');
 
+        this.prev = this.add.image(1, 18, 'characterSelectLeft');
+        this.next = this.add.image(28, 18, 'characterSelectRight');
+
+        this.prev.visible = false;
         this.current = 1;
 
-        this.cursors = game.input.keyboard.createCursorKeys();
+        TimesOfLores.cursors.up.onDown.add(this.startGame, this);
+        TimesOfLores.cursors.down.onDown.add(this.startGame, this);
+        TimesOfLores.spacebar.onDown.add(this.startGame, this);
+        TimesOfLores.cursors.left.onDown.add(this.prevCharacter, this);
+        TimesOfLores.cursors.right.onDown.add(this.nextCharacter, this);
 
-        this.cursors.up.onDown.add(this.startGame, this);
-        this.cursors.down.onDown.add(this.startGame, this);
-        this.cursors.left.onDown.add(this.prevCharacter, this);
-        this.cursors.right.onDown.add(this.nextCharacter, this);
+        TimesOfLores.gamepadLeft.onDown.add(this.prevCharacter, this);
+        TimesOfLores.gamepadRight.onDown.add(this.nextCharacter, this);
+        TimesOfLores.gamepadA.onDown.add(this.startGame, this);
 
     },
 
     prevCharacter: function () {
 
-        if (this.tween && this.tween.isRunning) { return; }
+        if (this.current === 1 || (this.tween && this.tween.isRunning)) { return; }
 
-        this.add.tween(this.char1).to( { x: "-32" }, 500, Phaser.Easing.Linear.None, true);
-        this.add.tween(this.char2).to( { x: "-32" }, 500, Phaser.Easing.Linear.None, true);
-        this.tween = this.add.tween(this.char3).to( { x: "-32" }, 500, Phaser.Easing.Linear.None, true);
+        this.current--;
 
-        this.tween.onComplete.add(this.reOrder, this);
+        this.add.tween(this.char1).to( { x: "+32" }, 250, Phaser.Easing.Linear.None, true);
+        this.add.tween(this.char2).to( { x: "+32" }, 250, Phaser.Easing.Linear.None, true);
+        this.tween = this.add.tween(this.char3).to( { x: "+32" }, 250, Phaser.Easing.Linear.None, true);
 
     },
 
     nextCharacter: function () {
 
-        if (this.tween && this.tween.isRunning) { return; }
+        if (this.current === 3 || (this.tween && this.tween.isRunning)) { return; }
 
-        this.add.tween(this.char1).to( { x: "+32" }, 500, Phaser.Easing.Linear.None, true);
-        this.add.tween(this.char2).to( { x: "+32" }, 500, Phaser.Easing.Linear.None, true);
-        this.tween = this.add.tween(this.char3).to( { x: "+32" }, 500, Phaser.Easing.Linear.None, true);
+        this.current++;
 
-        this.tween.onComplete.add(this.reOrder, this);
-
-    },
-
-    reOrder: function () {
-
-        if (this.char1.x === -64)
-        {
-            this.char1.x = 32;
-        }
-        else if (this.char1.x === 64)
-        {
-            this.char1.x = -32;
-        }
-
-        if (this.char2.x === -64)
-        {
-            this.char2.x = 32;
-        }
-        else if (this.char2.x === 64)
-        {
-            this.char2.x = -32;
-        }
-
-        if (this.char3.x === -64)
-        {
-            this.char3.x = 32;
-        }
-        else if (this.char3.x === 64)
-        {
-            this.char3.x = -32;
-        }
+        this.add.tween(this.char1).to( { x: "-32" }, 250, Phaser.Easing.Linear.None, true);
+        this.add.tween(this.char2).to( { x: "-32" }, 250, Phaser.Easing.Linear.None, true);
+        this.tween = this.add.tween(this.char3).to( { x: "-32" }, 250, Phaser.Easing.Linear.None, true);
 
     },
 
@@ -91,7 +70,29 @@ TimesOfLores.CharacterSelect.prototype = {
 
         TimesOfLores.character = new TimesOfLores.Character(this, 10, 3, 6);
 
+        console.log('current: ', this.current);
+
         this.state.start('Game');
+
+    },
+
+    update: function () {
+
+        if (this.current === 1)
+        {
+            this.prev.visible = false;
+            this.next.visible = true;
+        }
+        else if (this.current === 2)
+        {
+            this.prev.visible = true;
+            this.next.visible = true;
+        }
+        else if (this.current === 3)
+        {
+            this.prev.visible = true;
+            this.next.visible = false;
+        }
 
     },
 

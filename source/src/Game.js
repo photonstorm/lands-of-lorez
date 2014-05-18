@@ -42,38 +42,19 @@ TimesOfLores.Game.prototype = {
         this.minimap = new TimesOfLores.MiniMap(this);
         this.fight = new TimesOfLores.FightScreen(this);
 
-        this.cursors = game.input.keyboard.createCursorKeys();
+        TimesOfLores.cursors.up.onDown.add(this.moveForward, this);
+        TimesOfLores.cursors.down.onDown.add(this.showMap, this);
+        TimesOfLores.cursors.left.onDown.add(this.turnLeft, this);
+        TimesOfLores.cursors.right.onDown.add(this.turnRight, this);
 
-        this.cursors.up.onDown.add(this.moveForward, this);
-        this.cursors.down.onDown.add(this.showMap, this);
-        this.cursors.left.onDown.add(this.turnLeft, this);
-        this.cursors.right.onDown.add(this.turnRight, this);
-
-        this.input.gamepad.start();
-
-        var leftButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_LEFT_BUMPER);
-        leftButton.onDown.add(this.turnLeft, this);
-
-        var rightButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_RIGHT_BUMPER);
-        rightButton.onDown.add(this.turnRight, this);
-
-        var upButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_UP);
-        upButton.onDown.add(this.moveForward, this);
-
-        var downButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_DOWN);
-        downButton.onDown.add(this.moveBackward, this);
-
-        var stepLeftButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_LEFT);
-        stepLeftButton.onDown.add(this.stepLeft, this);
-
-        var stepRightButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_RIGHT);
-        stepRightButton.onDown.add(this.stepRight, this);
-
-        var aButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_A);
-        aButton.onDown.add(this.fight.hit, this.fight);
-
-        var xButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_X);
-        xButton.onDown.add(this.showMap, this);
+        TimesOfLores.gamepadLeftButton.onDown.add(this.turnLeft, this);
+        TimesOfLores.gamepadRightButton.onDown.add(this.turnRight, this);
+        TimesOfLores.gamepadUp.onDown.add(this.moveForward, this);
+        TimesOfLores.gamepadDown.onDown.add(this.moveBackward, this);
+        TimesOfLores.gamepadLeft.onDown.add(this.stepLeft, this);
+        TimesOfLores.gamepadRight.onDown.add(this.stepRight, this);
+        TimesOfLores.gamepadA.onDown.add(this.fight.hit, this.fight);
+        TimesOfLores.gamepadX.onDown.add(this.showMap, this);
 
         this.map.refresh();
 

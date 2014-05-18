@@ -11,6 +11,18 @@ TimesOfLores = {
     width: 256,
     height: 256,
 
+    cursors: null,
+    spacebar: null,
+
+    gamepadLeft: null,
+    gamepadRight: null,
+    gamepadUp: null,
+    gamepadDown: null,
+    gamepadLeftButton: null,
+    gamepadRightButton: null,
+    gamepadA: null,
+    gamepadX: null,
+
     pixelCanvas: null,
     pixelContext: null
 
@@ -37,6 +49,19 @@ TimesOfLores.Boot.prototype = {
         Phaser.Canvas.setSmoothingEnabled(TimesOfLores.pixelContext, false);
 
         this.input.maxPointers = 1;
+        this.input.gamepad.start();
+
+        TimesOfLores.gamepadLeftButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_LEFT_BUMPER);
+        TimesOfLores.gamepadRightButton = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_RIGHT_BUMPER);
+        TimesOfLores.gamepadUp = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_UP);
+        TimesOfLores.gamepadDown = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_DOWN);
+        TimesOfLores.gamepadLeft = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_LEFT);
+        TimesOfLores.gamepadRight = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_DPAD_RIGHT);
+        TimesOfLores.gamepadA = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_A);
+        TimesOfLores.gamepadX = this.input.gamepad.pad1.addButton(Phaser.Gamepad.XBOX360_X);
+
+        TimesOfLores.cursors = this.input.keyboard.createCursorKeys();
+        TimesOfLores.spacebar = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         this.stage.disableVisibilityChange = true;
 
@@ -76,8 +101,10 @@ window.onload = function () {
 
     game.state.add('Boot', TimesOfLores.Boot);
     game.state.add('Preloader', TimesOfLores.Preloader);
+    game.state.add('MainMenu', TimesOfLores.MainMenu);
     game.state.add('CharacterSelect', TimesOfLores.CharacterSelect);
     game.state.add('Game', TimesOfLores.Game);
+    game.state.add('GameOver', TimesOfLores.GameOver);
     game.state.add('WellDone', TimesOfLores.WellDone);
 
     game.state.start('Boot');

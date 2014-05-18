@@ -239,6 +239,7 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
         else
         {
             console.log('YOU ARE DEAD!');
+            this.state.start('GameOver');
         }
     }
     else

@@ -15,6 +15,7 @@ module.exports = function (grunt) {
 
             'source/src/Boot.js',
             'source/src/Preloader.js',
+            'source/src/MainMenu.js',
             'source/src/Character.js',
             'source/src/CharacterSelect.js',
             'source/src/Enemy.js',
@@ -28,6 +29,7 @@ module.exports = function (grunt) {
             'source/src/FightScreen.js',
             'source/src/UI.js',
             'source/src/Game.js',
+            'source/src/GameOver.js',
             'source/src/WellDone.js'
 
         ],

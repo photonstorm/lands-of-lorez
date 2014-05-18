@@ -29,6 +29,26 @@ TimesOfLores.Character.prototype = {
 
         this.hitPoints = this.baseHitPoints;
 
+    },
+
+    reset: function () {
+
+        this.baseHitPoints = 20;
+
+        this.initiative = 5;
+        this.hitPoints = 20;
+        this.armorClass = 15;
+        this.damageRoll = 10;
+        this.damageModifier = 5;
+
+        this.keys = 0;
+        this.gold = 0;
+
+        this.attackBonus = 5;
+
+        this.isFighting = false;
+        this.yourFightMove = false;
+
     }
 
 };

@@ -12,12 +12,10 @@ TimesOfLores.WellDone.prototype = {
 
         this.add.image(0, 0, 'wellDone');
 
-        this.cursors = game.input.keyboard.createCursorKeys();
-
-        this.cursors.up.onDown.add(this.nextLevel, this);
-        this.cursors.down.onDown.add(this.nextLevel, this);
-        this.cursors.left.onDown.add(this.nextLevel, this);
-        this.cursors.right.onDown.add(this.nextLevel, this);
+        TimesOfLores.cursors.up.onDown.add(this.nextLevel, this);
+        TimesOfLores.cursors.down.onDown.add(this.nextLevel, this);
+        TimesOfLores.spacebar.onDown.add(this.nextLevel, this);
+        TimesOfLores.gamepadA.onDown.add(this.nextLevel, this);
 
     },
 

@@ -25,6 +25,7 @@
     <script src="../../phaser-plugins/TilemapWalker/TilemapWalker.js"></script>
     <script src="src/Boot.js"></script>
     <script src="src/Preloader.js"></script>
+    <script src="src/MainMenu.js"></script>
     <script src="src/CharacterSelect.js"></script>
     <script src="src/Character.js"></script>
     <script src="src/Map.js"></script>
@@ -38,6 +39,7 @@
     <script src="src/enemies/Plotop.js"></script>
     <script src="src/enemies/Snake.js"></script>
     <script src="src/Game.js"></script>
+    <script src="src/GameOver.js"></script>
     <script src="src/WellDone.js"></script>
 
     <?php
