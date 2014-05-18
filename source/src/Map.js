@@ -14,8 +14,8 @@ TimesOfLores.Map = function (state) {
     this.wall2 = this.create(0, 0, 'wall2');
     this.wall3 = this.create(0, 0, 'wall3');
 
-    this.itemsFarLeft = this.create(-16, 0, 'itemsFar', 0);
-    this.itemsFarRight = this.create(16, 0, 'itemsFar', 0);
+    this.itemsFarLeft = this.create(-11, 0, 'itemsFar', 0);
+    this.itemsFarRight = this.create(11, 0, 'itemsFar', 0);
     this.itemsFar = this.create(0, 0, 'itemsFar', 0);
 
     //  mid
@@ -23,8 +23,8 @@ TimesOfLores.Map = function (state) {
     this.wall5 = this.create(0, 0, 'wall5');
     this.wall6 = this.create(0, 0, 'wall6');
 
-    this.itemsMidLeft = this.create(-18, 0, 'itemsMid', 0);
-    this.itemsMidRight = this.create(18, 0, 'itemsMid', 0);
+    this.itemsMidLeft = this.create(-17, 0, 'itemsMid', 0);
+    this.itemsMidRight = this.create(17, 0, 'itemsMid', 0);
     this.itemsMid = this.create(0, 0, 'itemsMid', 0);
 
     //  near
