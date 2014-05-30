@@ -16,8 +16,8 @@ TimesOfLores.Help.prototype = {
         // TimesOfLores.gamepadUp.onDown.add(this.scrollUp, this);
         // TimesOfLores.gamepadDown.onDown.add(this.scrollDown, this);
 
-        TimesOfLores.left.onDown.add(this.backToMenu, this);
-        TimesOfLores.right.onDown.add(this.backToMenu, this);
+        TimesOfLores.cursors.left.onDown.add(this.backToMenu, this);
+        TimesOfLores.cursors.right.onDown.add(this.backToMenu, this);
         TimesOfLores.spacebar.onDown.add(this.backToMenu, this);
 
         TimesOfLores.gamepadA.onDown.add(this.backToMenu, this);
