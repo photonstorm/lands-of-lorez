@@ -14,6 +14,9 @@ TimesOfLores.UI = function (state) {
     this.bloodSplat.anchor.set(0.5);
     this.bloodSplat.visible = false;
 
+    this.openDoor = this.create(0, 0, 'itemsPickUp', 11);
+    this.openDoor.visible = false;
+
     this.emitter = state.make.emitter(8, 0, 50);
     this.emitter.width = 20;
     this.emitter.makeParticles('coin');

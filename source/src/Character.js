@@ -9,7 +9,7 @@ TimesOfLores.Character = function (state, type) {
     if (this.type === 1)
     {
         console.log('Created Character Type 1 (EASY)');
-        this.baseHitPoints = 3;
+        this.baseHitPoints = 30;
         this.initiative = 10;
         this.damageRoll = 15;
         this.damageModifier = 7;

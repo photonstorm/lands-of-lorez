@@ -95,9 +95,10 @@ TimesOfLores.Map.prototype.canPass = function (direction) {
         index = this.walker.getTileRight().index;
     }
 
-    if (index === 3)
+    if (index === 3 || index === 14)
     {
-        if (this.character.keys > 0 || TimesOfLores.cheatKeys)
+        //  Tile is a locked door or exit, you need to face it AND have enough keys
+        if (direction === 0 && (this.character.keys > 0 || TimesOfLores.cheatKeys))
         {
             this.character.keys--;
 

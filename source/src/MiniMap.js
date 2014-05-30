@@ -15,7 +15,7 @@ TimesOfLores.MiniMap = function (state) {
     this.mapColors = [  '#000000', '#6e6e6e', '#4e3d33', '#95a8be', 
                         '#fedd00', '#64b732', '#4e3d33', 
                         '#ff3d6a', '#ff3d6a', '#ff3d6a', '#ff3d6a', '#ff3d6a', 
-                        '#ff3dff', '#6e6e6e', '#efefef' ];
+                        '#ff3dff', '#6e6e6e', '#4bb4ff' ];
 
     this.mapShadow = '#3e281b';
 

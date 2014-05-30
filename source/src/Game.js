@@ -14,6 +14,7 @@ TimesOfLores.Game = function (game) {
 
     this.cursors;
 
+    this.completed = false;
     this._location = new Phaser.Point();
     this._facing = 0;
 
@@ -56,6 +57,9 @@ TimesOfLores.Game.prototype = {
         TimesOfLores.gamepadA.onDown.add(this.fight.hit, this.fight);
         TimesOfLores.gamepadX.onDown.add(this.showMap, this);
 
+        this.completed = false;
+        this.ui.openDoor.visible = false;
+
         this.map.refresh();
 
     },
@@ -66,7 +70,15 @@ TimesOfLores.Game.prototype = {
 
         if (this.map.canPass(0))
         {
-            this.walker.moveForward();
+            //  Is it the exit?
+            if (this.walker.getTileAhead().index === 14)
+            {
+                this.openDoor();
+            }
+            else
+            {
+                this.walker.moveForward();
+            }
         }
 
     },
@@ -130,6 +142,11 @@ TimesOfLores.Game.prototype = {
 
     checkKey: function () {
 
+        if (this.completed)
+        {
+            return;
+        }
+
         //  All need moving
         if (this.minimap.visible)
         {
@@ -183,9 +200,25 @@ TimesOfLores.Game.prototype = {
             //  12 = cat, 13 = start, 14 = exit
             else if (tile.index === 14)
             {
-                this.state.start('WellDone');
+                // this.openDoor();
             }
         }
+
+    },
+
+    openDoor: function () {
+
+        this.completed = true;
+
+        this.ui.openDoor.visible = true;
+
+        this.time.events.add(2000, this.gotoWellDone, this);
+
+    },
+
+    gotoWellDone: function () {
+
+        this.state.start('WellDone');
 
     },
 
