@@ -222,6 +222,11 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
         //  Enemy hit you
         var dmg = this.enemy.damage;
     
+        if (dmg > 0)
+        {
+            this.ui.splatterHouse(dmg);
+        }
+
         console.log('Enemy hit you for', dmg, 'damage');
 
         this.hitFont.text = '-' + dmg;
@@ -229,11 +234,6 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
         var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
 
         this.character.hitPoints -= dmg;
-
-        if (dmg > 0)
-        {
-            this.ui.splatterHouse(dmg);
-        }
 
         console.log('Your hitPoints:', this.character.hitPoints, ' Health:', this.character.health);
 
@@ -245,7 +245,7 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
         else
         {
             console.log('YOU ARE DEAD!');
-            this.state.start('GameOver');
+            this.state.state.start('GameOver');
         }
     }
     else

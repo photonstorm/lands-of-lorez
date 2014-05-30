@@ -1,10 +1,10 @@
-TimesOfLores.WellDone = function (game) {
+TimesOfLores.GameOver = function (game) {
 
     this.game = game;
 
 };
 
-TimesOfLores.WellDone.prototype = {
+TimesOfLores.GameOver.prototype = {
 
     create: function () {
 
