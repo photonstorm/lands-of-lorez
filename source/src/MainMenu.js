@@ -133,7 +133,7 @@ TimesOfLores.MainMenu.prototype = {
         }
         else if (this.current === 2)
         {
-            this.state.start('Credits');
+            this.state.start('Help');
         }
         else if (this.current === 3)
         {

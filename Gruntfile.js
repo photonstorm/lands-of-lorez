@@ -16,6 +16,7 @@ module.exports = function (grunt) {
             'source/src/Boot.js',
             'source/src/Preloader.js',
             'source/src/Credits.js',
+            'source/src/Help.js',
             'source/src/MainMenu.js',
             'source/src/Character.js',
             'source/src/CharacterSelect.js',

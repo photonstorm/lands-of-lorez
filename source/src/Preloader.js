@@ -15,7 +15,7 @@ TimesOfLores.Preloader.prototype = {
 
 		this.load.setPreloadSprite(this.preloadBar);
 
-		this.load.spritesheet('wall0', 'images/wall0b.png', 32, 32);
+		this.load.spritesheet('wall0', 'images/wall0.png', 32, 32);
 		this.load.spritesheet('wall1', 'images/wall1.png', 32, 32);
 		this.load.spritesheet('wall2', 'images/wall2.png', 32, 32);
 		this.load.image('wall3', 'images/wall3.png');
@@ -33,6 +33,7 @@ TimesOfLores.Preloader.prototype = {
 		this.load.spritesheet('nsew', 'images/nsew.png', 5, 6);
 		
 		this.load.image('digits', 'images/digits.png');
+		this.load.image('help', 'images/help.png');
 
 		this.load.image('healthBG', 'images/health-bg.png');
 		this.load.image('health', 'images/health-fill.png');

@@ -102,6 +102,7 @@ window.onload = function () {
     game.state.add('Boot', TimesOfLores.Boot);
     game.state.add('Preloader', TimesOfLores.Preloader);
     game.state.add('Credits', TimesOfLores.Credits);
+    game.state.add('Help', TimesOfLores.Help);
     game.state.add('MainMenu', TimesOfLores.MainMenu);
     game.state.add('CharacterSelect', TimesOfLores.CharacterSelect);
     game.state.add('Game', TimesOfLores.Game);
