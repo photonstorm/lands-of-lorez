@@ -25,6 +25,7 @@
     <script src="../../phaser-plugins/TilemapWalker/TilemapWalker.js"></script>
     <script src="src/Boot.js"></script>
     <script src="src/Preloader.js"></script>
+    <script src="src/Credits.js"></script>
     <script src="src/MainMenu.js"></script>
     <script src="src/CharacterSelect.js"></script>
     <script src="src/Character.js"></script>

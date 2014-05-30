@@ -46,6 +46,9 @@ TimesOfLores.Preloader.prototype = {
 
 		this.load.image('coin', 'images/coin.png');
 		
+		this.load.image('photonstorm', 'images/photonstorm.png');
+		this.load.image('raster', 'images/raster.png');
+		
 		this.load.image('characterSelect1', 'images/character1.png');
 		this.load.image('characterSelect2', 'images/character2.png');
 		this.load.image('characterSelect3', 'images/character3.png');

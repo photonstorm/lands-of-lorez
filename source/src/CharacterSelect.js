@@ -68,7 +68,7 @@ TimesOfLores.CharacterSelect.prototype = {
 
     startGame: function () {
 
-        TimesOfLores.character = new TimesOfLores.Character(this, 10, 3, 6);
+        TimesOfLores.character = new TimesOfLores.Character(this, this.current);
 
         console.log('current: ', this.current);
 

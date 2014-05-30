@@ -1,22 +1,43 @@
-TimesOfLores.Character = function (state) {
+TimesOfLores.Character = function (state, type) {
 
     //  Will be populated from Character Selection screen
 
     this.game = state.game;
     this.walker = state.walker;
+    this.type = type;
 
-    this.baseHitPoints = 20;
+    if (this.type === 1)
+    {
+        console.log('Created Character Type 1 (EASY)');
+        this.baseHitPoints = 30;
+        this.initiative = 10;
+        this.damageRoll = 15;
+        this.damageModifier = 7;
+    }
+    else if (this.type === 2)
+    {
+        console.log('Created Character Type 2 (MEDIUM)');
+        this.baseHitPoints = 20;
+        this.initiative = 5;
+        this.damageRoll = 10;
+        this.damageModifier = 5;
+    }
+    else if (this.type === 3)
+    {
+        console.log('Created Character Type 3 (ULTRA)');
+        this.baseHitPoints = 12;
+        this.initiative = 5;
+        this.damageRoll = 10;
+        this.damageModifier = 1;
+    }
 
-    this.initiative = 5;
-    this.hitPoints = 20;
+    this.hitPoints = this.baseHitPoints;
     this.armorClass = 15;
-    this.damageRoll = 10;
-    this.damageModifier = 5;
+    this.attackBonus = 5;
 
     this.keys = 0;
     this.gold = 0;
 
-    this.attackBonus = 5;
 
     this.isFighting = false;
     this.yourFightMove = false;
@@ -33,18 +54,34 @@ TimesOfLores.Character.prototype = {
 
     reset: function () {
 
-        this.baseHitPoints = 20;
+        if (this.type === 1)
+        {
+            this.baseHitPoints = 30;
+            this.initiative = 10;
+            this.damageRoll = 15;
+            this.damageModifier = 7;
+        }
+        else if (this.type === 2)
+        {
+            this.baseHitPoints = 20;
+            this.initiative = 5;
+            this.damageRoll = 10;
+            this.damageModifier = 5;
+        }
+        else if (this.type === 3)
+        {
+            this.baseHitPoints = 12;
+            this.initiative = 5;
+            this.damageRoll = 10;
+            this.damageModifier = 1;
+        }
 
-        this.initiative = 5;
-        this.hitPoints = 20;
+        this.hitPoints = this.baseHitPoints;
         this.armorClass = 15;
-        this.damageRoll = 10;
-        this.damageModifier = 5;
+        this.attackBonus = 5;
 
         this.keys = 0;
         this.gold = 0;
-
-        this.attackBonus = 5;
 
         this.isFighting = false;
         this.yourFightMove = false;

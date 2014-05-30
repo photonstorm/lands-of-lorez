@@ -7,6 +7,8 @@ TimesOfLores.MainMenu = function (game) {
 	this.option2;
 	this.option3;
 
+    this.current = 1;
+
 	this.tween;
 
 };
@@ -21,14 +23,14 @@ TimesOfLores.MainMenu.prototype = {
         this.option2 = this.add.image(32, 24, 'titleHelp');
         this.option3 = this.add.image(-32, 24, 'titleCredits');
 
-        TimesOfLores.cursors.up.onDown.add(this.chooseCharacter, this);
-        TimesOfLores.spacebar.onDown.add(this.chooseCharacter, this);
+        TimesOfLores.cursors.up.onDown.add(this.select, this);
+        TimesOfLores.spacebar.onDown.add(this.select, this);
         TimesOfLores.cursors.left.onDown.add(this.nextOption, this);
         TimesOfLores.cursors.right.onDown.add(this.prevOption, this);
 
         TimesOfLores.gamepadLeft.onDown.add(this.prevOption, this);
         TimesOfLores.gamepadRight.onDown.add(this.nextOption, this);
-        TimesOfLores.gamepadA.onDown.add(this.chooseCharacter, this);
+        TimesOfLores.gamepadA.onDown.add(this.select, this);
 
 	},
 
@@ -85,11 +87,35 @@ TimesOfLores.MainMenu.prototype = {
             this.option3.x = -32;
         }
 
+        if (this.option1.x === 0)
+        {
+            this.current = 1;
+        }
+        else if (this.option2.x === 0)
+        {
+            this.current = 2;
+        }
+        else if (this.option3.x === 0)
+        {
+            this.current = 3;
+        }
+
     },
 
-    chooseCharacter: function () {
+    select: function () {
 
-        this.state.start('CharacterSelect');
+        if (this.current === 1)
+        {
+            this.state.start('CharacterSelect');
+        }
+        else if (this.current === 2)
+        {
+            this.state.start('Credits');
+        }
+        else if (this.current === 3)
+        {
+            this.state.start('Credits');
+        }
 
     },
 
