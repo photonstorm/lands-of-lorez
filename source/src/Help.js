@@ -13,13 +13,13 @@ TimesOfLores.Help.prototype = {
 
     	this.scroll = this.add.image(0, 32, 'help');
 
-        // TimesOfLores.cursors.up.onDown.add(this.scrollUp, this);
-        // TimesOfLores.cursors.down.onDown.add(this.scrollDown, this);
-
         // TimesOfLores.gamepadUp.onDown.add(this.scrollUp, this);
         // TimesOfLores.gamepadDown.onDown.add(this.scrollDown, this);
 
+        TimesOfLores.left.onDown.add(this.backToMenu, this);
+        TimesOfLores.right.onDown.add(this.backToMenu, this);
         TimesOfLores.spacebar.onDown.add(this.backToMenu, this);
+
         TimesOfLores.gamepadA.onDown.add(this.backToMenu, this);
 
         this.add.tween(this.scroll).to( { y: 0 }, 500, Phaser.Easing.Sinusoidal.InOut, true);
@@ -28,11 +28,11 @@ TimesOfLores.Help.prototype = {
 
     update: function () {
 
-        if (TimesOfLores.cursors.up.isDown && this.scroll.y >= -132)
+        if (TimesOfLores.cursors.down.isDown && this.scroll.y >= -132)
         {
             this.scroll.y -= 1;
         }
-        else if (TimesOfLores.cursors.down.isDown && this.scroll.y < 0)
+        else if (TimesOfLores.cursors.up.isDown && this.scroll.y < 0)
         {
             this.scroll.y += 1;
         }
