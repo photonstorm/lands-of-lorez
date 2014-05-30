@@ -4,6 +4,7 @@ TimesOfLores.FightScreen = function (state) {
     Phaser.Group.call(this, state.game);
 
     this.state = state;
+    this.ui = state.ui;
     this.walker = state.walker;
     this.character = state.character;
 
@@ -228,6 +229,11 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
         var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
 
         this.character.hitPoints -= dmg;
+
+        if (dmg > 0)
+        {
+            this.ui.splatterHouse(dmg);
+        }
 
         console.log('Your hitPoints:', this.character.hitPoints, ' Health:', this.character.health);
 

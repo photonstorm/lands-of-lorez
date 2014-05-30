@@ -36,6 +36,10 @@ TimesOfLores.Credits.prototype = {
     	this.logo = this.add.image(32, 8, 'photonstorm');
 
         TimesOfLores.spacebar.onDown.add(this.backToMenu, this);
+        TimesOfLores.cursors.up.onDown.add(this.backToMenu, this);
+        TimesOfLores.cursors.down.onDown.add(this.backToMenu, this);
+        TimesOfLores.cursors.left.onDown.add(this.backToMenu, this);
+        TimesOfLores.cursors.right.onDown.add(this.backToMenu, this);
         TimesOfLores.gamepadA.onDown.add(this.backToMenu, this);
 
         this.add.tween(this.logo).to( { x: -111 }, 2000, Phaser.Easing.Sinusoidal.InOut, true, 0, 100000, true);
