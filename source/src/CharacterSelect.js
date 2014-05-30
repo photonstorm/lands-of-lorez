@@ -20,15 +20,15 @@ TimesOfLores.CharacterSelect.prototype = {
 
     create: function () {
 
-        this.char1 = this.add.image(0, 0, 'characterSelect1');
-        this.char2 = this.add.image(32, 0, 'characterSelect2');
-        this.char3 = this.add.image(64, 0, 'characterSelect3');
+        this.char1 = this.add.image(-32, 0, 'characterSelect1');
+        this.char2 = this.add.image(0, 0, 'characterSelect2');
+        this.char3 = this.add.image(32, 0, 'characterSelect3');
 
         this.prev = this.add.image(1, 18, 'characterSelectLeft');
         this.next = this.add.image(28, 18, 'characterSelectRight');
 
-        this.prev.visible = false;
-        this.current = 1;
+        // this.prev.visible = false;
+        this.current = 2;
 
         TimesOfLores.cursors.up.onDown.add(this.startGame, this);
         TimesOfLores.cursors.down.onDown.add(this.startGame, this);
