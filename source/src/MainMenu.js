@@ -1,7 +1,8 @@
 
 TimesOfLores.MainMenu = function (game) {
 
-	this.title;
+    this.title;
+	this.title2;
 
 	this.option1;
 	this.option2;
@@ -17,7 +18,9 @@ TimesOfLores.MainMenu.prototype = {
 
 	create: function () {
 
-    	this.title = this.add.image(0, 0, 'title');
+        this.title = this.add.image(0, 0, 'title');
+    	this.title2 = this.add.image(0, 0, 'title2');
+        this.title2.alpha = 0;
 
         this.option1 = this.add.image(0, 24, 'titlePlay');
         this.option2 = this.add.image(32, 24, 'titleHelp');
@@ -32,7 +35,25 @@ TimesOfLores.MainMenu.prototype = {
         TimesOfLores.gamepadRight.onDown.add(this.nextOption, this);
         TimesOfLores.gamepadA.onDown.add(this.select, this);
 
+        this.startFlicker();
+
 	},
+
+    startFlicker: function () {
+
+        var tween = this.add.tween(this.title2).to( { alpha: 1 }, this.rnd.integerInRange(50, 150), Phaser.Easing.Linear.None);
+        tween.onComplete.add(this.fadeFlicker, this);
+        tween.start();
+
+    },
+
+    fadeFlicker: function () {
+
+        var tween = this.add.tween(this.title2).to( { alpha: 0 }, this.rnd.integerInRange(50, 150), Phaser.Easing.Linear.None);
+        tween.onComplete.add(this.startFlicker, this);
+        tween.start();
+
+    },
 
     prevOption: function () {
 

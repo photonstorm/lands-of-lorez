@@ -10,7 +10,7 @@ TimesOfLores.WellDone.prototype = {
 
     create: function () {
 
-        this.add.image(0, 0, 'wellDone');
+        this.add.image(0, 8, 'wellDone');
 
         TimesOfLores.cursors.up.onDown.add(this.nextLevel, this);
         TimesOfLores.cursors.down.onDown.add(this.nextLevel, this);

@@ -6,6 +6,7 @@ TimesOfLores.Credits = function (game) {
 	this.tween;
     this.data;
     this.rasters;
+    this.scroller;
     this.pos = [];
 
 };
@@ -17,7 +18,7 @@ TimesOfLores.Credits.prototype = {
         this.stage.backgroundColor = '#000000';
 
         //  Generate our motion data
-        this.data = this.make.tween({ y: 0 }).to( { y: 32 }, 700, Phaser.Easing.Sinusoidal.In).yoyo(true).generateData(60);
+        this.data = this.make.tween({ y: -8 }).to( { y: 32 }, 800, Phaser.Easing.Sinusoidal.InOut).yoyo(true).generateData(60);
 
         //  A group of rasters
         this.rasters = this.add.group();
@@ -33,7 +34,9 @@ TimesOfLores.Credits.prototype = {
             this.pos.push(i * offset);
         }
 
-    	this.logo = this.add.image(32, 8, 'photonstorm');
+        this.logo = this.add.image(32, 8, 'photonstorm');
+
+    	this.scroller = this.add.image(100, 24, 'creditsScroller');
 
         TimesOfLores.spacebar.onDown.add(this.backToMenu, this);
         TimesOfLores.cursors.up.onDown.add(this.backToMenu, this);
@@ -42,7 +45,8 @@ TimesOfLores.Credits.prototype = {
         TimesOfLores.cursors.right.onDown.add(this.backToMenu, this);
         TimesOfLores.gamepadA.onDown.add(this.backToMenu, this);
 
-        this.add.tween(this.logo).to( { x: -111 }, 2000, Phaser.Easing.Sinusoidal.InOut, true, 0, 100000, true);
+        this.add.tween(this.logo).to( { x: -111 }, 3000, Phaser.Easing.Sinusoidal.InOut, true, 0, 100000, true);
+        this.add.tween(this.scroller).to( { x: -160 }, 10000, Phaser.Easing.Sinusoidal.InOut, true, 0, 100000);
 
 	},
 

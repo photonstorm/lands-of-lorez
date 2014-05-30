@@ -85,6 +85,8 @@ TimesOfLores.UI.prototype.show = function () {
 
     this.keyFx.visible = false;
     this.potionFx.visible = false;
+    this.bloodSplat.visible = false;
+    this.openDoor.visible = false;
 
 };
 

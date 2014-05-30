@@ -48,6 +48,7 @@ TimesOfLores.Preloader.prototype = {
 		
 		this.load.image('photonstorm', 'images/photonstorm.png');
 		this.load.image('raster', 'images/raster.png');
+		this.load.image('creditsScroller', 'images/credits.png');
 		
 		this.load.image('characterSelect1', 'images/character1.png');
 		this.load.image('characterSelect2', 'images/character2.png');
@@ -56,6 +57,7 @@ TimesOfLores.Preloader.prototype = {
 		this.load.image('characterSelectRight', 'images/select-right.png');
 
 		this.load.image('title', 'images/title.png');
+		this.load.image('title2', 'images/title2.png');
 		this.load.image('titlePlay', 'images/menu-play.png');
 		this.load.image('titleHelp', 'images/menu-help.png');
 		this.load.image('titleCredits', 'images/menu-credits.png');
