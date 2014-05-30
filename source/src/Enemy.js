@@ -28,7 +28,7 @@ Object.defineProperty(TimesOfLores.Enemy.prototype, "health", {
         {
             return 10;
         }
-        else if (this.hitPoints === 0)
+        else if (this.hitPoints <= 0)
         {
             return 0;
         }

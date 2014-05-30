@@ -1,7 +1,5 @@
 TimesOfLores.Character = function (state, type) {
 
-    //  Will be populated from Character Selection screen
-
     this.game = state.game;
     this.walker = state.walker;
     this.type = type;
@@ -19,11 +17,9 @@ TimesOfLores.Character = function (state, type) {
     {
         console.log('Created Character Type 2 (MEDIUM)');
         this.baseHitPoints = 20;
-        // this.baseHitPoints = 2;
         this.initiative = 5;
         this.damageRoll = 10;
         this.damageModifier = 5;
-        // this.damageModifier = 1;
         this.markerSpeed = 700;
     }
     else if (this.type === 3)
@@ -43,11 +39,10 @@ TimesOfLores.Character = function (state, type) {
     this.keys = 0;
     this.gold = 0;
 
-
     this.isFighting = false;
     this.yourFightMove = false;
 
-}
+};
 
 TimesOfLores.Character.prototype = {
 

@@ -166,12 +166,6 @@ TimesOfLores.FightScreen.prototype.hit = function () {
             console.log('You hit the Enemy for', dmg, 'damage.');
 
             this.enemy.hitPoints -= dmg;
-
-            if (this.enemy.hitPoints < 0)
-            {
-                this.enemy.hitPoints = 0;
-            }
-
             this.hitFont.text = '-' + dmg;
 
             console.log('Enemy hitPoints:', this.enemy.hitPoints, ' Health:', this.enemy.health);
@@ -289,10 +283,6 @@ TimesOfLores.FightScreen.prototype.enemyDead = function () {
 
     console.log('enemy DEAD');
 
-    //  Dead!
-    //  
-    //  Ok let's do something nicer here
-
     this.enemyHealthFill.visible = false;
 
     var payout = this.enemy.kill();
@@ -302,7 +292,9 @@ TimesOfLores.FightScreen.prototype.enemyDead = function () {
     this.state.ui.dropCoins(payout);
 
     this.walker.putTile(-1);
-    this.state.map.refresh();
+
+    this.state.map.itemsNear.frame = 0;
+    // this.state.map.refresh();
 
     console.log('payout', payout);
 
