@@ -62,13 +62,27 @@ TimesOfLores.Map.prototype.showWall = function (wall) {
     //  Provides wall-bob effect
     if (wall.key !== 'wall3' && wall.key !== 'wall6')
     {
-        if (wall.frame === 0)
+        if (wall.key === 'wall0' && TimesOfLores.level === 1)
         {
-            wall.frame = 1;
+            if (wall.frame === 0)
+            {
+                wall.frame = 3;
+            }
+            else
+            {
+                wall.frame = 2;
+            }
         }
         else
         {
-            wall.frame = 0;
+            if (wall.frame === 0)
+            {
+                wall.frame = 1;
+            }
+            else
+            {
+                wall.frame = 0;
+            }
         }
     }
 

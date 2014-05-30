@@ -62,6 +62,15 @@ TimesOfLores.Game.prototype = {
 
         this.map.refresh();
 
+        if (TimesOfLores.level === 1)
+        {
+            this.ui.showIntro1();
+        }
+        else
+        {
+            this.ui.showIntro2();
+        }
+
     },
 
     moveForward: function () {
@@ -141,6 +150,18 @@ TimesOfLores.Game.prototype = {
     },
 
     checkKey: function () {
+
+        if (this.ui.intro1.visible)
+        {
+            this.ui.hideIntro1();
+            return;
+        }
+
+        if (this.ui.intro2.visible)
+        {
+            this.ui.hideIntro2();
+            return;
+        }
 
         if (this.completed)
         {

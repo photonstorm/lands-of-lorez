@@ -34,6 +34,8 @@ TimesOfLores.Preloader.prototype = {
 		
 		this.load.image('digits', 'images/digits.png');
 		this.load.image('help', 'images/help.png');
+		this.load.image('intro1', 'images/intro1.png');
+		this.load.image('intro2', 'images/intro2.png');
 
 		this.load.image('healthBG', 'images/health-bg.png');
 		this.load.image('health', 'images/health-fill.png');

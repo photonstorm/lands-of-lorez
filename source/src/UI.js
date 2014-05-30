@@ -48,12 +48,50 @@ TimesOfLores.UI = function (state) {
     this.keyFx.visible = false;
     this.potionFx.visible = false;
 
+    this.intro1 = this.create(0, 0, 'intro1');
+    this.intro2 = this.create(0, 0, 'intro2');
+
+    this.intro1.visible = false;
+    this.intro2.visible = false;
+
     return this;
 
 };
 
 TimesOfLores.UI.prototype = Object.create(Phaser.Group.prototype);
 TimesOfLores.UI.prototype.constructor = TimesOfLores.UI;
+
+TimesOfLores.UI.prototype.showIntro1 = function () {
+
+    this.intro1.y = 32;
+    this.intro1.visible = true;
+
+    this.state.add.tween(this.intro1).to( { y: 0 }, 500, Phaser.Easing.Sinusoidal.InOut, true);
+
+};
+
+TimesOfLores.UI.prototype.hideIntro1 = function () {
+
+    var tween = this.state.add.tween(this.intro1).to( { y: -32 }, 500, Phaser.Easing.Sinusoidal.InOut, true);
+    tween.onComplete.add(function() { this.intro1.visible = false; }, this);
+
+};
+
+TimesOfLores.UI.prototype.showIntro2 = function () {
+
+    this.intro2.y = 32;
+    this.intro2.visible = true;
+
+    this.state.add.tween(this.intro2).to( { y: 0 }, 500, Phaser.Easing.Sinusoidal.InOut, true);
+
+};
+
+TimesOfLores.UI.prototype.hideIntro2 = function () {
+
+    var tween = this.state.add.tween(this.intro2).to( { y: -32 }, 500, Phaser.Easing.Sinusoidal.InOut, true);
+    tween.onComplete.add(function() { this.intro2.visible = false; }, this);
+
+};
 
 TimesOfLores.UI.prototype.update = function () {
 
@@ -87,6 +125,8 @@ TimesOfLores.UI.prototype.show = function () {
     this.potionFx.visible = false;
     this.bloodSplat.visible = false;
     this.openDoor.visible = false;
+    this.intro1.visible = false;
+    this.intro2.visible = false;
 
 };
 
