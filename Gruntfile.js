@@ -15,6 +15,7 @@ module.exports = function (grunt) {
 
             'source/src/Boot.js',
             'source/src/Preloader.js',
+            'source/src/Credits.js',
             'source/src/MainMenu.js',
             'source/src/Character.js',
             'source/src/CharacterSelect.js',
@@ -61,7 +62,7 @@ module.exports = function (grunt) {
             main: {
                 files: [
                     { src: ['dist/timeoflores.min.js'], dest: 'source/js/timeoflores.min.js' },
-                    { src: ['../phaser/dist/phaser-arcade-physics.min.js'], dest: 'source/js/phaser-arcade-physics.min.js' }
+                    { src: ['../phaser/build/custom/phaser-arcade-physics.min.js'], dest: 'source/js/phaser-arcade-physics.min.js' }
                 ]
             }
         }
