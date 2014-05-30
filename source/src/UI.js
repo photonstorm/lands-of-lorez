@@ -123,7 +123,7 @@ TimesOfLores.UI.prototype.gotKey = function () {
 
 };
 
-TimesOfLores.UI.prototype.splatterHouse = function () {
+TimesOfLores.UI.prototype.splatterHouse = function (dead) {
 
     this.bloodSplat.x = 16;
     this.bloodSplat.y = 8;
@@ -133,8 +133,15 @@ TimesOfLores.UI.prototype.splatterHouse = function () {
 
     //  play sound
 
+    var drip = 900;
+
+    if (dead)
+    {
+        drip = 2000;
+    }
+
     var tween = this.game.add.tween(this.bloodSplat.scale).to( { x: 1, y: 1 }, 300, Phaser.Easing.Quartic.In);
-    var tween2 = this.game.add.tween(this.bloodSplat).to( { y: 32+16, alpha: 0.3 }, 900, Phaser.Easing.Quartic.In);
+    var tween2 = this.game.add.tween(this.bloodSplat).to( { y: 64, alpha: 0.3 }, drip, Phaser.Easing.Quartic.In);
 
     tween.chain(tween2);
 

@@ -141,11 +141,7 @@ TimesOfLores.FightScreen.prototype.yourAttack = function () {
     this.hitMarker.x = 4;
     this.hitImage.visible = false;
 
-    this.hitTween = this.state.add.tween(this.hitMarker).to( { x: 25 }, 600, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000, true);
-
-    //  bloody hard!
-    // this.hitTween = this.state.add.tween(this.hitMarker).to( { x: 25 }, 1000, Phaser.Easing.Circular.InOut, true, 0, 1000, true);
-    // this.hitTween = this.state.add.tween(this.hitMarker).to( { x: 25 }, 1000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+    this.hitTween = this.state.add.tween(this.hitMarker).to( { x: 25 }, this.character.markerSpeed, Phaser.Easing.Sinusoidal.InOut, true, 0, Number.MAX_SAFE_INTEGER, true);
 
 };
 
@@ -180,6 +176,9 @@ TimesOfLores.FightScreen.prototype.hit = function () {
                 var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
                 tween.onComplete.add(this.enemyAttacks, this);
                 tween.start();
+
+                this.state.map.itemsNear.tint = 0xff0000;
+                this.state.time.events.add(150, this.removeTint, this);
             }
             else
             {
@@ -198,6 +197,12 @@ TimesOfLores.FightScreen.prototype.hit = function () {
             tween.start();
         }
     }
+
+};
+
+TimesOfLores.FightScreen.prototype.removeTint = function () {
+
+    this.state.map.itemsNear.tint = 0xffffff;
 
 };
 
@@ -222,31 +227,36 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
         //  Enemy hit you
         var dmg = this.enemy.damage;
     
-        if (dmg > 0)
-        {
-            this.ui.splatterHouse(dmg);
-        }
-
         console.log('Enemy hit you for', dmg, 'damage');
 
         this.hitFont.text = '-' + dmg;
-
-        var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
-
         this.character.hitPoints -= dmg;
 
         console.log('Your hitPoints:', this.character.hitPoints, ' Health:', this.character.health);
 
         if (this.character.health > 0)
         {
+            if (dmg > 0)
+            {
+                this.ui.splatterHouse(false);
+            }
+
+            var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
             tween.onComplete.add(this.yourAttack, this);
-            tween.start();
         }
         else
         {
+            if (dmg > 0)
+            {
+                this.ui.splatterHouse(true);
+            }
+
             console.log('YOU ARE DEAD!');
-            this.state.state.start('GameOver');
+            var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out, true);
+            this.state.time.events.add(2500, this.gameOver, this);
         }
+
+        tween.start();
     }
     else
     {
@@ -262,6 +272,11 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
 
 };
 
+TimesOfLores.FightScreen.prototype.gameOver = function () {
+
+    this.state.state.start('GameOver');
+
+};
 
 TimesOfLores.FightScreen.prototype.enemyDead = function () {
 

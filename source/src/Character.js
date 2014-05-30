@@ -13,14 +13,18 @@ TimesOfLores.Character = function (state, type) {
         this.initiative = 10;
         this.damageRoll = 15;
         this.damageModifier = 7;
+        this.markerSpeed = 1000;
     }
     else if (this.type === 2)
     {
         console.log('Created Character Type 2 (MEDIUM)');
         this.baseHitPoints = 20;
+        // this.baseHitPoints = 2;
         this.initiative = 5;
         this.damageRoll = 10;
         this.damageModifier = 5;
+        // this.damageModifier = 1;
+        this.markerSpeed = 700;
     }
     else if (this.type === 3)
     {
@@ -29,6 +33,7 @@ TimesOfLores.Character = function (state, type) {
         this.initiative = 5;
         this.damageRoll = 10;
         this.damageModifier = 1;
+        this.markerSpeed = 600;
     }
 
     this.hitPoints = this.baseHitPoints;

@@ -27,7 +27,6 @@ TimesOfLores.CharacterSelect.prototype = {
         this.prev = this.add.image(1, 18, 'characterSelectLeft');
         this.next = this.add.image(28, 18, 'characterSelectRight');
 
-        // this.prev.visible = false;
         this.current = 2;
 
         TimesOfLores.cursors.up.onDown.add(this.startGame, this);
