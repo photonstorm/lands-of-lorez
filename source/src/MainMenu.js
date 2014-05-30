@@ -35,6 +35,8 @@ TimesOfLores.MainMenu.prototype = {
         TimesOfLores.gamepadRight.onDown.add(this.nextOption, this);
         TimesOfLores.gamepadA.onDown.add(this.select, this);
 
+        this.current = 1;
+
         this.startFlicker();
 
 	},
