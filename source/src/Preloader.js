@@ -15,7 +15,7 @@ TimesOfLores.Preloader.prototype = {
 
 		this.load.setPreloadSprite(this.preloadBar);
 
-		this.load.spritesheet('wall0', 'images/wall0.png', 32, 32);
+		this.load.spritesheet('wall0', 'images/wall0b.png', 32, 32);
 		this.load.spritesheet('wall1', 'images/wall1.png', 32, 32);
 		this.load.spritesheet('wall2', 'images/wall2.png', 32, 32);
 		this.load.image('wall3', 'images/wall3.png');

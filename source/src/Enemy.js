@@ -28,6 +28,10 @@ Object.defineProperty(TimesOfLores.Enemy.prototype, "health", {
         {
             return 10;
         }
+        else if (this.hitPoints === 0)
+        {
+            return 0;
+        }
         else
         {
             return Math.round((this.hitPoints / this.baseHitPoints) * 10);

@@ -167,23 +167,30 @@ TimesOfLores.FightScreen.prototype.hit = function () {
 
             this.enemy.hitPoints -= dmg;
 
+            if (this.enemy.hitPoints < 0)
+            {
+                this.enemy.hitPoints = 0;
+            }
+
             this.hitFont.text = '-' + dmg;
 
             console.log('Enemy hitPoints:', this.enemy.hitPoints, ' Health:', this.enemy.health);
     
+            var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
+
+            this.state.map.itemsNear.tint = 0xff0000;
+            this.state.time.events.add(150, this.removeTint, this);
+
             if (this.enemy.health > 0)
             {
-                var tween = this.state.add.tween(this.hitImage).to( { y: -6 }, 1000, Phaser.Easing.Sinusoidal.Out);
                 tween.onComplete.add(this.enemyAttacks, this);
-                tween.start();
-
-                this.state.map.itemsNear.tint = 0xff0000;
-                this.state.time.events.add(150, this.removeTint, this);
             }
             else
             {
-                this.enemyDead();
+                tween.onComplete.add(this.enemyDead, this);
             }
+
+            tween.start();
         }
         else
         {
