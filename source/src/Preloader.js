@@ -68,6 +68,27 @@ TimesOfLores.Preloader.prototype = {
 		this.load.image('wellDone', 'images/well-done.png');
 		this.load.image('gameOver', 'images/gameover.png');
 
+		//	Sound Effects
+		this.load.audio('door', 'audio/door.wav');
+		this.load.audio('enemy-dead', 'audio/enemy-dead.wav');
+		this.load.audio('footstep1', 'audio/footstep1.wav');
+		this.load.audio('footstep2', 'audio/footstep2.wav');
+		this.load.audio('footstep3', 'audio/footstep3.wav');
+		this.load.audio('footstep4', 'audio/footstep4.wav');
+		this.load.audio('gameover', 'audio/gameover.wav');
+		this.load.audio('gold', 'audio/gold.wav');
+		this.load.audio('hit', 'audio/hit.wav');
+		this.load.audio('key', 'audio/key.wav');
+		this.load.audio('level-won', 'audio/level-won.wav');
+		this.load.audio('music-intro', 'audio/music-intro.wav');
+		this.load.audio('potion', 'audio/potion.wav');
+		this.load.audio('select', 'audio/select.wav');
+		this.load.audio('whoosh', 'audio/whoosh.wav');
+		this.load.audio('stab', 'audio/stab.wav');
+		this.load.audio('treasure', 'audio/treasure.wav');
+		this.load.audio('armor', 'audio/armor.wav');
+
+
 		if (window['mapJSON'])
 		{
 			console.log('map data loaded from page');

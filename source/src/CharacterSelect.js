@@ -51,6 +51,8 @@ TimesOfLores.CharacterSelect.prototype = {
         this.add.tween(this.char2).to( { x: "+32" }, 250, Phaser.Easing.Linear.None, true);
         this.tween = this.add.tween(this.char3).to( { x: "+32" }, 250, Phaser.Easing.Linear.None, true);
 
+        this.sound.play('whoosh');
+
     },
 
     nextCharacter: function () {
@@ -63,6 +65,8 @@ TimesOfLores.CharacterSelect.prototype = {
         this.add.tween(this.char2).to( { x: "-32" }, 250, Phaser.Easing.Linear.None, true);
         this.tween = this.add.tween(this.char3).to( { x: "-32" }, 250, Phaser.Easing.Linear.None, true);
 
+        this.sound.play('whoosh');
+
     },
 
     startGame: function () {
@@ -70,6 +74,8 @@ TimesOfLores.CharacterSelect.prototype = {
         TimesOfLores.character = new TimesOfLores.Character(this, this.current);
 
         console.log('current: ', this.current);
+
+        this.sound.play('select');
 
         this.state.start('Game');
 

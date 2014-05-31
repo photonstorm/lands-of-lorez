@@ -5,6 +5,7 @@ TimesOfLores.Map = function (state) {
 
     this.walker = state.walker;
     this.character = state.character;
+    this.sound = state.sound;
 
     //  bg
     this.wall0 = this.create(0, 0, 'wall0');
@@ -114,6 +115,8 @@ TimesOfLores.Map.prototype.canPass = function (direction) {
         //  Tile is a locked door or exit, you need to face it AND have enough keys
         if (direction === 0 && (this.character.keys > 0 || TimesOfLores.cheatKeys))
         {
+            this.sound.play('door');
+
             this.character.keys--;
 
             if (this.character.keys < 0)

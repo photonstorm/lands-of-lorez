@@ -7,6 +7,7 @@ TimesOfLores.FightScreen = function (state) {
     this.ui = state.ui;
     this.walker = state.walker;
     this.character = state.character;
+    this.sound = state.sound;
 
     this.enemy = null;
     this.enemyHealthBG = this.create(21, 1, 'enemyBG');
@@ -177,10 +178,12 @@ TimesOfLores.FightScreen.prototype.hit = function () {
 
             if (this.enemy.health > 0)
             {
+                this.sound.play('stab');
                 tween.onComplete.add(this.enemyAttacks, this);
             }
             else
             {
+                this.sound.play('enemy-dead');
                 tween.onComplete.add(this.enemyDead, this);
             }
 
@@ -190,6 +193,8 @@ TimesOfLores.FightScreen.prototype.hit = function () {
         {
             //  You missed!
             console.log('You missed');
+            
+            this.sound.play('armor');
 
             this.hitFont.text = '-0';
 
@@ -262,6 +267,8 @@ TimesOfLores.FightScreen.prototype.enemyAttacks = function () {
     else
     {
         console.log('Enemy missed');
+        
+        this.sound.play('armor');
 
         this.hitFont.text = '-0';
 

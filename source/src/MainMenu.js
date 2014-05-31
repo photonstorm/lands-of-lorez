@@ -39,6 +39,8 @@ TimesOfLores.MainMenu.prototype = {
 
         this.startFlicker();
 
+        this.sound.play('music-intro');
+
 	},
 
     startFlicker: function () {
@@ -67,6 +69,8 @@ TimesOfLores.MainMenu.prototype = {
 
         this.tween.onComplete.add(this.reOrder, this);
 
+        this.sound.play('whoosh');
+
     },
 
     nextOption: function () {
@@ -78,6 +82,8 @@ TimesOfLores.MainMenu.prototype = {
         this.tween = this.add.tween(this.option3).to( { x: "+32" }, 250, Phaser.Easing.Linear.None, true);
 
         this.tween.onComplete.add(this.reOrder, this);
+
+        this.sound.play('whoosh');
 
     },
 
@@ -126,6 +132,8 @@ TimesOfLores.MainMenu.prototype = {
     },
 
     select: function () {
+
+        this.sound.play('select');
 
         if (this.current === 1)
         {

@@ -86,6 +86,7 @@ TimesOfLores.Game.prototype = {
             }
             else
             {
+                this.sound.play('footstep' + this.rnd.integerInRange(1,4));
                 this.walker.moveForward();
             }
         }
@@ -98,6 +99,7 @@ TimesOfLores.Game.prototype = {
 
         if (this.map.canPass(2))
         {
+            this.sound.play('footstep' + this.rnd.integerInRange(1,4));
             this.walker.moveBackward();
         }
 
@@ -109,6 +111,7 @@ TimesOfLores.Game.prototype = {
 
         if (this.map.canPass(1))
         {
+            this.sound.play('footstep' + this.rnd.integerInRange(1,4));
             this.walker.moveLeft();
         }
 
@@ -120,6 +123,7 @@ TimesOfLores.Game.prototype = {
 
         if (this.map.canPass(3))
         {
+            this.sound.play('footstep' + this.rnd.integerInRange(1,4));
             this.walker.moveRight();
         }
 
@@ -129,6 +133,7 @@ TimesOfLores.Game.prototype = {
 
         if (!this.checkKey()) { return; }
 
+        this.sound.play('footstep' + this.rnd.integerInRange(1,4));
         this.walker.turnLeft();
 
     },
@@ -137,6 +142,7 @@ TimesOfLores.Game.prototype = {
 
         if (!this.checkKey()) { return; }
 
+        this.sound.play('footstep' + this.rnd.integerInRange(1,4));
         this.walker.turnRight();
 
     },
@@ -146,6 +152,8 @@ TimesOfLores.Game.prototype = {
         if (!this.checkKey()) { return; }
 
         this.minimap.display();
+        
+        this.sound.play('whoosh');
 
     },
 

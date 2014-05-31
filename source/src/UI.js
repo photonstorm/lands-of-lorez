@@ -6,6 +6,7 @@ TimesOfLores.UI = function (state) {
     this.state = state;
     this.walker = state.walker;
     this.character = state.character;
+    this.sound = state.sound;
 
     this.keyFx = this.create(0, 0, 'itemsPickUp', 1);
     this.potionFx = this.create(0, 0, 'itemsPickUp', 2);
@@ -114,6 +115,8 @@ TimesOfLores.UI.prototype.dropCoins = function (payout) {
     this.emitter.visible = true;
 
     this.emitter.start(false, 2000, 250, payout);
+    
+    this.sound.play('gold');
 
 };
 
@@ -149,7 +152,7 @@ TimesOfLores.UI.prototype.pickUpKey = function () {
     this.walker.putTile(-1);
     this.state.map.refresh();
 
-    //  play sound
+    this.sound.play('key');
 
     var tween = this.game.add.tween(this.keyFx).to( { y: -32 }, 700, Phaser.Easing.Quartic.In, true);
     tween.onComplete.add(this.gotKey, this);
@@ -189,6 +192,8 @@ TimesOfLores.UI.prototype.splatterHouse = function (dead) {
 
     tween.start();
 
+    this.sound.play('hit');
+
 };
 
 TimesOfLores.UI.prototype.endBlood = function () {
@@ -206,7 +211,7 @@ TimesOfLores.UI.prototype.pickUpPotion = function () {
     this.walker.putTile(-1);
     this.state.map.refresh();
 
-    //  play sound
+    this.sound.play('potion');
 
     this.game.add.tween(this.healthFill).to( { width: 10 }, 700, Phaser.Easing.Quartic.In, true);
 

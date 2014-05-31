@@ -15,6 +15,8 @@ TimesOfLores.GameOver.prototype = {
         TimesOfLores.spacebar.onDown.add(this.backToMenu, this);
         TimesOfLores.gamepadA.onDown.add(this.backToMenu, this);
 
+        this.sound.play('gameover');
+
     },
 
     backToMenu: function () {

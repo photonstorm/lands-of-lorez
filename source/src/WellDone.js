@@ -17,6 +17,8 @@ TimesOfLores.WellDone.prototype = {
         TimesOfLores.spacebar.onDown.add(this.nextLevel, this);
         TimesOfLores.gamepadA.onDown.add(this.nextLevel, this);
 
+        this.sound.play('level-won');
+
     },
 
     nextLevel: function () {
