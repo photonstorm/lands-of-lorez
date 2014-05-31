@@ -38,6 +38,7 @@ TimesOfLores.Character = function (state, type) {
 
     this.keys = 0;
     this.gold = 0;
+    this.totalGold = 0;
 
     this.isFighting = false;
     this.yourFightMove = false;

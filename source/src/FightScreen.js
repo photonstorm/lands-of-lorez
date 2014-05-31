@@ -295,6 +295,7 @@ TimesOfLores.FightScreen.prototype.enemyDead = function () {
     var payout = this.enemy.kill();
 
     this.character.gold += payout;
+    this.character.totalGold += payout;
 
     if (this.character.gold > 99)
     {

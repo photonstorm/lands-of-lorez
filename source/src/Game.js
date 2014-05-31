@@ -64,10 +64,10 @@ TimesOfLores.Game.prototype = {
 
         if (TimesOfLores.level === 1)
         {
-            this.ui.showIntro1();
-        }
-        else
-        {
+            // this.ui.showIntro1();
+        // }
+        // else
+        // {
             this.ui.showIntro2();
         }
 
@@ -239,6 +239,13 @@ TimesOfLores.Game.prototype = {
             else if (tile.index === 15)
             {
                 this.character.gold++;
+                this.character.totalGold++;
+
+                if (this.character.gold > 99)
+                {
+                    this.character.gold -= 99;
+                }
+
                 this.ui.pickUpBling();
             }
         }

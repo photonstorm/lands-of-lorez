@@ -8,6 +8,7 @@ TimesOfLores.Credits = function (game) {
     this.rasters;
     this.scroller;
     this.pos = [];
+    this.tune;
 
 };
 
@@ -48,6 +49,8 @@ TimesOfLores.Credits.prototype = {
         this.add.tween(this.logo).to( { x: -111 }, 3000, Phaser.Easing.Sinusoidal.InOut, true, 0, Number.MAX_SAFE_INTEGER, true);
         this.add.tween(this.scroller).to( { x: -160 }, 10000, Phaser.Easing.Sinusoidal.InOut, true, 0, Number.MAX_SAFE_INTEGER);
 
+        this.tune = this.sound.play('credits', 1, true);
+
 	},
 
     update: function () {
@@ -71,6 +74,7 @@ TimesOfLores.Credits.prototype = {
 
     backToMenu: function () {
 
+        this.tune.stop();
         this.state.start('MainMenu');
 
     },

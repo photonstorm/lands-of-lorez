@@ -10,6 +10,7 @@ TimesOfLores.MainMenu = function (game) {
 
     this.current = 1;
 
+    this.tune;
 	this.tween;
 
 };
@@ -40,6 +41,7 @@ TimesOfLores.MainMenu.prototype = {
         this.startFlicker();
 
         this.sound.play('music-intro');
+        this.tune = this.sound.play('fire', 0.3, true);
 
 	},
 
@@ -133,6 +135,7 @@ TimesOfLores.MainMenu.prototype = {
 
     select: function () {
 
+        this.tune.stop();
         this.sound.play('select');
 
         if (this.current === 1)

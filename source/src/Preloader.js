@@ -70,24 +70,26 @@ TimesOfLores.Preloader.prototype = {
 		this.load.image('gameWon', 'images/endgame.png');
 
 		//	Sound Effects
-		this.load.audio('door', 'audio/door.wav');
-		this.load.audio('enemy-dead', 'audio/enemy-dead.wav');
-		this.load.audio('footstep1', 'audio/footstep1.wav');
-		this.load.audio('footstep2', 'audio/footstep2.wav');
-		this.load.audio('footstep3', 'audio/footstep3.wav');
-		this.load.audio('footstep4', 'audio/footstep4.wav');
-		this.load.audio('gameover', 'audio/gameover.wav');
-		this.load.audio('gold', 'audio/gold.wav');
-		this.load.audio('hit', 'audio/hit.wav');
-		this.load.audio('key', 'audio/key.wav');
-		this.load.audio('level-won', 'audio/level-won.wav');
-		this.load.audio('music-intro', 'audio/music-intro.wav');
-		this.load.audio('potion', 'audio/potion.wav');
-		this.load.audio('select', 'audio/select.wav');
-		this.load.audio('whoosh', 'audio/whoosh.wav');
-		this.load.audio('stab', 'audio/stab.wav');
-		this.load.audio('treasure', 'audio/treasure.wav');
-		this.load.audio('armor', 'audio/armor.wav');
+		this.load.audio('door', 'audio/door.mp3');
+		this.load.audio('enemy-dead', 'audio/enemy-dead.mp3');
+		this.load.audio('footstep1', 'audio/footstep1.mp3');
+		this.load.audio('footstep2', 'audio/footstep2.mp3');
+		this.load.audio('footstep3', 'audio/footstep3.mp3');
+		this.load.audio('footstep4', 'audio/footstep4.mp3');
+		this.load.audio('gameover', 'audio/gameover.mp3');
+		this.load.audio('gold', 'audio/gold.mp3');
+		this.load.audio('hit', 'audio/hit.mp3');
+		this.load.audio('key', 'audio/key.mp3');
+		this.load.audio('level-won', 'audio/level-won.mp3');
+		this.load.audio('music-intro', 'audio/music-intro.mp3');
+		this.load.audio('potion', 'audio/potion.mp3');
+		this.load.audio('select', 'audio/select.mp3');
+		this.load.audio('whoosh', 'audio/whoosh.mp3');
+		this.load.audio('stab', 'audio/stab.mp3');
+		this.load.audio('treasure', 'audio/treasure.mp3');
+		this.load.audio('armor', 'audio/armor.mp3');
+		this.load.audio('credits', 'audio/credits.mp3');
+		this.load.audio('fire', 'audio/fire.mp3');
 
 
 		if (window['mapJSON'])
@@ -107,17 +109,15 @@ TimesOfLores.Preloader.prototype = {
 
 		this.preloadBar.cropEnabled = false;
 
-		this.state.start('MainMenu');
-
 	},
 
 	update: function () {
 
-		// if (this.cache.isSoundDecoded('titleMusic') && this.ready == false)
-		// {
-			// this.ready = true;
-			// this.state.start('MainMenu');
-		// }
+		if (this.cache.isSoundDecoded('music-intro') && this.cache.isSoundDecoded('fire') && !this.ready)
+		{
+			this.ready = true;
+			this.state.start('MainMenu');
+		}
 
 	},
 
