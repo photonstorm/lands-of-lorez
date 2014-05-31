@@ -10,6 +10,8 @@ TimesOfLores.UI = function (state) {
 
     this.keyFx = this.create(0, 0, 'itemsPickUp', 1);
     this.potionFx = this.create(0, 0, 'itemsPickUp', 2);
+    this.blingFx = this.create(0, 0, 'itemsPickUp', 12);
+    this.heartFx = this.create(0, 0, 'itemsPickUp', 9);
 
     this.bloodSplat = this.create(0, 0, 'itemsPickUp', 0);
     this.bloodSplat.anchor.set(0.5);
@@ -48,12 +50,16 @@ TimesOfLores.UI = function (state) {
 
     this.keyFx.visible = false;
     this.potionFx.visible = false;
+    this.blingFx.visible = false;
+    this.heartFx.visible = false;
 
     this.intro1 = this.create(0, 0, 'intro1');
     this.intro2 = this.create(0, 0, 'intro2');
 
     this.intro1.visible = false;
     this.intro2.visible = false;
+
+    this.introTween;
 
     return this;
 
@@ -73,8 +79,8 @@ TimesOfLores.UI.prototype.showIntro1 = function () {
 
 TimesOfLores.UI.prototype.hideIntro1 = function () {
 
-    var tween = this.state.add.tween(this.intro1).to( { y: -32 }, 500, Phaser.Easing.Sinusoidal.InOut, true);
-    tween.onComplete.add(function() { this.intro1.visible = false; }, this);
+    this.introTween = this.state.add.tween(this.intro1).to( { y: -32 }, 500, Phaser.Easing.Sinusoidal.InOut, true);
+    this.introTween.onComplete.add(function() { this.intro1.visible = false; }, this);
 
 };
 
@@ -89,8 +95,8 @@ TimesOfLores.UI.prototype.showIntro2 = function () {
 
 TimesOfLores.UI.prototype.hideIntro2 = function () {
 
-    var tween = this.state.add.tween(this.intro2).to( { y: -32 }, 500, Phaser.Easing.Sinusoidal.InOut, true);
-    tween.onComplete.add(function() { this.intro2.visible = false; }, this);
+    this.introTween = this.state.add.tween(this.intro2).to( { y: -32 }, 500, Phaser.Easing.Sinusoidal.InOut, true);
+    this.introTween.onComplete.add(function() { this.intro2.visible = false; }, this);
 
 };
 
@@ -130,6 +136,8 @@ TimesOfLores.UI.prototype.show = function () {
     this.openDoor.visible = false;
     this.intro1.visible = false;
     this.intro2.visible = false;
+    this.blingFx.visible = false;
+    this.heartFx.visible = false;
 
 };
 
@@ -156,6 +164,39 @@ TimesOfLores.UI.prototype.pickUpKey = function () {
 
     var tween = this.game.add.tween(this.keyFx).to( { y: -32 }, 700, Phaser.Easing.Quartic.In, true);
     tween.onComplete.add(this.gotKey, this);
+
+};
+
+TimesOfLores.UI.prototype.pickUpBling = function () {
+
+    this.blingFx.x = 0;
+    this.blingFx.y = 0;
+    this.blingFx.visible = true;
+
+    this.walker.putTile(-1);
+    this.state.map.refresh();
+
+    this.sound.play('treasure');
+
+    this.game.add.tween(this.blingFx).to( { y: -32 }, 700, Phaser.Easing.Quartic.In, true);
+
+    this.emitter.visible = true;
+    this.emitter.start(false, 2000, 250, 1);
+
+};
+
+TimesOfLores.UI.prototype.pickUpCat = function () {
+
+    this.heartFx.x = 0;
+    this.heartFx.y = 32;
+    this.heartFx.visible = true;
+
+    // this.walker.putTile(-1);
+    // this.state.map.refresh();
+
+    // this.sound.play('meow');
+
+    this.game.add.tween(this.heartFx).to( { y: -10 }, 3000, Phaser.Easing.Back.Out, true);
 
 };
 

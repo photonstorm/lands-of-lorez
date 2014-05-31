@@ -296,12 +296,16 @@ TimesOfLores.FightScreen.prototype.enemyDead = function () {
 
     this.character.gold += payout;
 
+    if (this.character.gold > 99)
+    {
+        this.character.gold -= 99;
+    }
+
     this.state.ui.dropCoins(payout);
 
     this.walker.putTile(-1);
 
     this.state.map.itemsNear.frame = 0;
-    // this.state.map.refresh();
 
     console.log('payout', payout);
 

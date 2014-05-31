@@ -8,8 +8,8 @@ TimesOfLores.Enemy.Snake = function (fightScreen, id) {
     this.damageRoll = 6;
     this.damageModifier = 2;
 
-    this.minGold = 4;
-    this.maxGold = 10;
+    this.minGold = 1;
+    this.maxGold = 5;
 
     this.armorClass = 21;
 	

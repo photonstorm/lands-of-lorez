@@ -8,7 +8,7 @@ TimesOfLores.Enemy.Duck = function (fightScreen, id) {
     this.damageRoll = 5;
     this.damageModifier = 2;
 
-    this.minGold = 3;
+    this.minGold = 1;
     this.maxGold = 3;
 
     this.armorClass = 15;

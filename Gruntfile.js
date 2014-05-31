@@ -32,6 +32,7 @@ module.exports = function (grunt) {
             'source/src/UI.js',
             'source/src/Game.js',
             'source/src/GameOver.js',
+            'source/src/GameWon.js',
             'source/src/WellDone.js'
 
         ],

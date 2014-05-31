@@ -8,8 +8,8 @@ TimesOfLores.Enemy.Plotop = function (fightScreen, id) {
     this.damageRoll = 5;
     this.damageModifier = 1;
 
-    this.minGold = 2;
-    this.maxGold = 6;
+    this.minGold = 1;
+    this.maxGold = 4;
 
     this.armorClass = 16;
 	

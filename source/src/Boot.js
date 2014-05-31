@@ -107,6 +107,7 @@ window.onload = function () {
     game.state.add('CharacterSelect', TimesOfLores.CharacterSelect);
     game.state.add('Game', TimesOfLores.Game);
     game.state.add('GameOver', TimesOfLores.GameOver);
+    game.state.add('GameWon', TimesOfLores.GameWon);
     game.state.add('WellDone', TimesOfLores.WellDone);
 
     game.state.start('Boot');

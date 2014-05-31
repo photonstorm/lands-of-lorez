@@ -63,27 +63,13 @@ TimesOfLores.Map.prototype.showWall = function (wall) {
     //  Provides wall-bob effect
     if (wall.key !== 'wall3' && wall.key !== 'wall6')
     {
-        if (wall.key === 'wall0' && TimesOfLores.level === 1)
+        if (wall.frame === 0)
         {
-            if (wall.frame === 0)
-            {
-                wall.frame = 3;
-            }
-            else
-            {
-                wall.frame = 2;
-            }
+            wall.frame = 1;
         }
         else
         {
-            if (wall.frame === 0)
-            {
-                wall.frame = 1;
-            }
-            else
-            {
-                wall.frame = 0;
-            }
+            wall.frame = 0;
         }
     }
 
@@ -163,7 +149,7 @@ TimesOfLores.Map.prototype.refresh = function () {
             {
                 this.showWall(this.walls[y][x]);
             }
-            else if (i === 3 || i === 6)
+            else if (i === 3)
             {
                 //  Locked wall door thingy
                 if (x === 1 && y === 0)
@@ -175,6 +161,24 @@ TimesOfLores.Map.prototype.refresh = function () {
                 {
                     this.itemsMid.visible = true;
                     this.itemsMid.frame = 0;
+                }
+                else
+                {
+                    this.showWall(this.walls[y][x]);
+                }
+            }
+            else if (i === 6)
+            {
+                //  Locked wall door thingy
+                if (x === 1 && y === 0)
+                {
+                    this.itemsFar.visible = true;
+                    this.itemsFar.frame = 3;
+                }
+                else if (x === 1 && y === 1)
+                {
+                    this.itemsMid.visible = true;
+                    this.itemsMid.frame = 3;
                 }
                 else
                 {

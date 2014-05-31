@@ -42,6 +42,7 @@
     <script src="src/enemies/Snake.js"></script>
     <script src="src/Game.js"></script>
     <script src="src/GameOver.js"></script>
+    <script src="src/GameWon.js"></script>
     <script src="src/WellDone.js"></script>
 
     <?php

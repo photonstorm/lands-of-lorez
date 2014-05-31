@@ -159,6 +159,11 @@ TimesOfLores.Game.prototype = {
 
     checkKey: function () {
 
+        if (this.ui.introTween && this.ui.introTween.isRunning)
+        {
+            return;
+        }
+
         if (this.ui.intro1.visible)
         {
             this.ui.hideIntro1();
@@ -202,7 +207,7 @@ TimesOfLores.Game.prototype = {
 
         var tile = this.walker.getTile();
 
-        console.log('current tile is', tile);
+        // console.log('current tile is', tile);
 
         if (tile)
         {
@@ -226,10 +231,15 @@ TimesOfLores.Game.prototype = {
             {
                 this.fight.display(tile.index);
             }
-            //  12 = cat, 13 = start, 14 = exit
-            else if (tile.index === 14)
+            //  12 = cat, 13 = start, 14 = exit, 15 = bling
+            else if (tile.index === 12)
             {
-                // this.openDoor();
+                this.gameWon();
+            }
+            else if (tile.index === 15)
+            {
+                this.character.gold++;
+                this.ui.pickUpBling();
             }
         }
 
@@ -248,6 +258,22 @@ TimesOfLores.Game.prototype = {
     gotoWellDone: function () {
 
         this.state.start('WellDone');
+
+    },
+
+    gameWon: function () {
+
+        this.completed = true;
+
+        this.ui.pickUpCat();
+
+        this.time.events.add(2000, this.gotoGameWon, this);
+
+    },
+
+    gotoGameWon: function () {
+
+        this.state.start('GameWon');
 
     },
 

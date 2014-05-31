@@ -8,7 +8,7 @@ TimesOfLores.Enemy.Bat = function (fightScreen, id) {
     this.damageRoll = 3;
     this.damageModifier = 0;
 
-    this.minGold = 2;
+    this.minGold = 1;
     this.maxGold = 2;
 
     this.armorClass = 22;

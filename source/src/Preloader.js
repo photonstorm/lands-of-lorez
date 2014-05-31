@@ -67,6 +67,7 @@ TimesOfLores.Preloader.prototype = {
 
 		this.load.image('wellDone', 'images/well-done.png');
 		this.load.image('gameOver', 'images/gameover.png');
+		this.load.image('gameWon', 'images/endgame.png');
 
 		//	Sound Effects
 		this.load.audio('door', 'audio/door.wav');
