@@ -46,8 +46,8 @@ TimesOfLores.Credits.prototype = {
         TimesOfLores.cursors.right.onDown.add(this.backToMenu, this);
         TimesOfLores.gamepadA.onDown.add(this.backToMenu, this);
 
-        this.add.tween(this.logo).to( { x: -111 }, 3000, Phaser.Easing.Sinusoidal.InOut, true, 0, Number.MAX_SAFE_INTEGER, true);
-        this.add.tween(this.scroller).to( { x: -160 }, 10000, Phaser.Easing.Sinusoidal.InOut, true, 0, Number.MAX_SAFE_INTEGER);
+        this.add.tween(this.logo).to( { x: -111 }, 3000, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000000, true);
+        this.add.tween(this.scroller).to( { x: -160 }, 10000, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000000);
 
         this.tune = this.sound.play('credits', 1, true);
 

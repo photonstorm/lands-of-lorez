@@ -120,6 +120,8 @@ TimesOfLores.FightScreen.prototype.display = function (enemyType) {
 
     console.log('Initiative check. You:', you, 'Them:', them);
 
+    this.sound.play(this.enemy.name);
+
     if (you >= them)
     {
         tween.onComplete.add(this.yourAttack, this);
@@ -142,7 +144,7 @@ TimesOfLores.FightScreen.prototype.yourAttack = function () {
     this.hitMarker.x = 4;
     this.hitImage.visible = false;
 
-    this.hitTween = this.state.add.tween(this.hitMarker).to( { x: 25 }, this.character.markerSpeed, Phaser.Easing.Sinusoidal.InOut, true, 0, Number.MAX_SAFE_INTEGER, true);
+    this.hitTween = this.state.add.tween(this.hitMarker).to( { x: 25 }, this.character.markerSpeed, Phaser.Easing.Sinusoidal.InOut, true, 0, 1000000, true);
 
 };
 

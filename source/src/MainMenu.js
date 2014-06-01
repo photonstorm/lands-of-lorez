@@ -27,6 +27,8 @@ TimesOfLores.MainMenu.prototype = {
         this.option2 = this.add.image(32, 24, 'titleHelp');
         this.option3 = this.add.image(-32, 24, 'titleCredits');
 
+console.log(this.input.gamepad.pad1);
+
         TimesOfLores.cursors.up.onDown.add(this.select, this);
         TimesOfLores.spacebar.onDown.add(this.select, this);
         TimesOfLores.cursors.left.onDown.add(this.nextOption, this);

@@ -90,7 +90,12 @@ TimesOfLores.Preloader.prototype = {
 		this.load.audio('armor', 'audio/armor.mp3');
 		this.load.audio('credits', 'audio/credits.mp3');
 		this.load.audio('fire', 'audio/fire.mp3');
-
+		this.load.audio('Bat', 'audio/bat.mp3');
+		this.load.audio('Duck', 'audio/duck.mp3');
+		this.load.audio('Frog', 'audio/frog.mp3');
+		this.load.audio('Plotop', 'audio/plotop.mp3');
+		this.load.audio('Snake', 'audio/snake.mp3');
+		this.load.audio('meow', 'audio/meow.mp3');
 
 		if (window['mapJSON'])
 		{

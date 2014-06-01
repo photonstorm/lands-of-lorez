@@ -1,13 +1,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Times of Lores - 32x32 LowRes Jam Entry</title>
+    <title>Lands of Lorez - 32x32 #lowrezjam entry</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=9">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="HandheldFriendly" content="true" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <meta name="HandheldFriendly" content="true" />
     <meta name="robots" content="noindex,nofollow" />
@@ -23,6 +19,7 @@
             require('../../phaser/build/config.php');
     ?>
     <script src="../../phaser-plugins/TilemapWalker/TilemapWalker.js"></script>
+    <script src="src/sha1.js"></script>
     <script src="src/Boot.js"></script>
     <script src="src/Preloader.js"></script>
     <script src="src/Help.js"></script>
